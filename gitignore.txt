@@ -1,0 +1,45 @@
+# Eclipse project settings
+.project
+.classpath
+.settings/
+
+# Build output directories
+bin/
+target/
+out/
+
+# Maven
+log/
+logs/
+*.log
+
+# Gradle
+.gradle/
+build/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# IntelliJ IDEA (if used later)
+.idea/
+*.iml
+
+# Environment / config
+*.env
+*.properties
+
+# Personal/IDE config
+*.swp
+*.swo
+*.bak
+*.tmp
+*.orig
+
+# Test reports / screenshots
+/reports/
+*.png
+*.jpg
+
+# VS Code (if used)
+.vscode/
