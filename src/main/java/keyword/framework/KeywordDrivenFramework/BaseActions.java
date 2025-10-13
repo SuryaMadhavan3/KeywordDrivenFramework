@@ -57,30 +57,18 @@ public class BaseActions {
         System.out.println("[ACTION] Hovered over: " + locatorValue);
     }
 
-    public void scrollTo(String locatorType, String locatorValue) {
+    public void scrollAndClick(String locatorType, String locatorValue) {
         try {
-            List<WebElement> elements = driver.findElements(getBy(locatorType, locatorValue));
-            if (elements.isEmpty()) {
-                throw new NoSuchElementException("Element not found: " + locatorValue);
-            }
-
-            WebElement target = elements.stream()
-                    .filter(WebElement::isDisplayed)
-                    .findFirst()
-                    .orElse(elements.get(0));
-
-            ((JavascriptExecutor) driver).executeScript(
-            	    "arguments[0].scrollIntoView({block: 'center', behavior: 'smooth'});", target);
-            	Thread.sleep(1000);
-
-
+            WebElement element = driver.findElement(getBy(locatorType, locatorValue));
+    		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
             new WebDriverWait(driver, Duration.ofSeconds(10))
-                    .until(ExpectedConditions.visibilityOf(target));
+                    .until(ExpectedConditions.elementToBeClickable(element));
 
-            System.out.println("✅ Scrolled to element successfully: " + locatorValue);
+            element.click();
+            System.out.println("✅ Scrolled and clicked element: " + locatorValue);
 
         } catch (Exception e) {
-            System.err.println("❌ Failed to scroll to element: " + locatorValue + " | " + e.getMessage());
+            System.err.println("❌ Failed to scroll and click: " + locatorValue + " | " + e.getMessage());
         }
     }
 
@@ -119,6 +107,8 @@ public class BaseActions {
         List<WebElement> items = driver.findElements(getBy(locatorType, locatorValue));
         for (WebElement item : items) {
             if (item.getText().toLowerCase().contains(text.toLowerCase())) {
+                // Scroll to element before clicking
+                ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", item);
                 item.click();
                 System.out.println("[ACTION] Clicked product containing: " + text);
                 return;
@@ -146,81 +136,58 @@ public class BaseActions {
                 break;
             }
         }
-    }public void switchToProductPage(int timeoutSeconds) {
-        String originalHandle = driver.getWindowHandle();
-        Set<String> oldHandles = driver.getWindowHandles();
-
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutSeconds));
-
+    }
+    
+    public void switchToNewWindowAndWait(int timeoutSeconds) {
         try {
-            // Wait for either a new window OR a new URL in the same window
+            // Save the current window and URL before the click
+            String originalHandle = driver.getWindowHandle();
+            Set<String> oldHandles = driver.getWindowHandles();
+
+            System.out.println("Current window handles before click: " + oldHandles.size());
+            
+            Thread.sleep(2000);  // Pause to let any new tab open (if needed)
+            
+            System.out.println("Window handles after click: " + driver.getWindowHandles().size());
+
+            String startingUrl = driver.getCurrentUrl();
+
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutSeconds));
+
+            // Wait for either: a new tab OR URL change in same tab
             wait.until(d -> {
                 Set<String> newHandles = d.getWindowHandles();
-                if (newHandles.size() > oldHandles.size()) return true;
                 String currentUrl = d.getCurrentUrl();
-                // Amazon product pages usually contain "/dp/" or "/gp/"
-                return currentUrl.contains("/dp/") || currentUrl.contains("/gp/");
+                return newHandles.size() > oldHandles.size() || !currentUrl.equals(startingUrl);
             });
 
             Set<String> allHandles = driver.getWindowHandles();
 
+            // If a new window opened, switch to it
             if (allHandles.size() > oldHandles.size()) {
-                // Real new tab opened
                 for (String handle : allHandles) {
                     if (!oldHandles.contains(handle)) {
                         driver.switchTo().window(handle);
+                        System.out.println("✅ Switched to new tab/window: " + handle);
                         break;
                     }
                 }
-                System.out.println("✅ Switched to new product tab.");
             } else {
-                // No new tab — same window navigation
-                System.out.println("ℹ️ Product opened in same tab. Staying here.");
+                System.out.println("ℹ️ No new window detected — product opened in same tab.");
             }
 
-            // Wait for page load completion
+            // Wait for page to finish loading
             wait.until(d -> ((JavascriptExecutor) d)
                     .executeScript("return document.readyState").equals("complete"));
 
-            System.out.println("🟢 Product page loaded: " + driver.getCurrentUrl());
+            System.out.println("🟢 Page loaded successfully: " + driver.getCurrentUrl());
 
         } catch (Exception e) {
-            System.out.println("❌ Failed to switch or detect new tab: " + e.getMessage());
+            System.err.println("❌ Failed to switch or detect new window: " + e.getMessage());
         }
     }
 
 
-    public void switchToNewWindowAndWait(int timeoutSeconds) {
-        try {
-            String currentWindow = driver.getWindowHandle();
-            Set<String> oldWindows = driver.getWindowHandles();
-
-            System.out.println("🕒 Waiting for new window to open...");
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutSeconds));
-
-            // Wait until a new window handle appears
-            wait.until(d -> d.getWindowHandles().size() > oldWindows.size());
-
-            // Switch to the new window
-            Set<String> allWindows = driver.getWindowHandles();
-            for (String window : allWindows) {
-                if (!oldWindows.contains(window)) {
-                    driver.switchTo().window(window);
-                    System.out.println("✅ Switched to new window: " + window);
-                    break;
-                }
-            }
-
-            // Wait for page to finish loading fully
-            wait.until(d -> ((JavascriptExecutor) d)
-                    .executeScript("return document.readyState").equals("complete"));
-
-            System.out.println("🟢 Page loaded: " + driver.getCurrentUrl());
-
-        } catch (Exception e) {
-            System.out.println("❌ Failed to switch to new window: " + e.getMessage());
-        }
-    }
 
     
     public void dismissElementIfVisible(String locatorType, String locatorValue) {

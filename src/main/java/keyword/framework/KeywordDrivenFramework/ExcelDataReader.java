@@ -2,58 +2,95 @@ package keyword.framework.KeywordDrivenFramework;
 
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.*;
 
 public class ExcelDataReader {
 
-    // ✅ Get all sheet names in a workbook
-    public List<String> getSheetNames(String excelPath) throws IOException {
-        List<String> sheetNames = new ArrayList<>();
-        try (FileInputStream file = new FileInputStream(excelPath);
-             XSSFWorkbook workbook = new XSSFWorkbook(file)) {
-            for (int i = 0; i < workbook.getNumberOfSheets(); i++) {
-                sheetNames.add(workbook.getSheetName(i));
-            }
-        }
-        return sheetNames;
-    }
+	// ✅ Get all sheet names in a workbook
+	public List<String> getSheetNames(String excelPath) throws IOException {
+		List<String> sheetNames = new ArrayList<>();
 
-    // ✅ Read one sheet into list of maps
-    public List<Map<String, String>> readSheet(String excelPath, String sheetName) throws IOException {
-        List<Map<String, String>> data = new ArrayList<>();
+		try (FileInputStream file = new FileInputStream(excelPath); XSSFWorkbook workbook = new XSSFWorkbook(file)) {
 
-        try (FileInputStream file = new FileInputStream(excelPath);
-             XSSFWorkbook workbook = new XSSFWorkbook(file)) {
+			for (int i = 0; i < workbook.getNumberOfSheets(); i++) {
+				sheetNames.add(workbook.getSheetName(i));
+			}
+		}
 
-            Sheet sheet = workbook.getSheet(sheetName);
-            if (sheet == null) throw new IOException("❌ Sheet not found: " + sheetName);
+		return sheetNames;
+	}
 
-            Row headerRow = sheet.getRow(0);
-            if (headerRow == null) return data;
+	// ✅ Read one sheet into list of maps
+	public List<Map<String, String>> readSheet(String excelPath, String sheetName) throws IOException {
+		List<Map<String, String>> data = new ArrayList<>();
 
-            for (int i = 1; i <= sheet.getLastRowNum(); i++) {
-                Row row = sheet.getRow(i);
-                if (row == null) continue;
+		try (FileInputStream file = new FileInputStream(excelPath); XSSFWorkbook workbook = new XSSFWorkbook(file)) {
 
-                Map<String, String> rowData = new LinkedHashMap<>();
-                for (int j = 0; j < headerRow.getLastCellNum(); j++) {
-                    Cell headerCell = headerRow.getCell(j);
-                    if (headerCell == null) continue;
+			Sheet sheet = workbook.getSheet(sheetName);
+			if (sheet == null)
+				throw new IOException("❌ Sheet not found: " + sheetName);
 
-                    String header = headerCell.getStringCellValue().trim();
-                    if (header.isEmpty()) continue;
+			Row headerRow = sheet.getRow(0);
+			if (headerRow == null)
+				return data;
 
-                    String value = new DataFormatter().formatCellValue(row.getCell(j)).trim();
-                    rowData.put(header, value);
-                }
-                data.add(rowData);
-            }
-        }
+			// Loop through each data row
+			for (int i = 1; i <= sheet.getLastRowNum(); i++) {
+				Row row = sheet.getRow(i);
+				if (row == null)
+					continue;
 
-        System.out.println("✅ Loaded " + data.size() + " rows from sheet: " + sheetName);
-        return data;
-    }
+				Map<String, String> rowData = new LinkedHashMap<>();
+
+				// Loop through each cell in the row
+				for (int j = 0; j < headerRow.getLastCellNum(); j++) {
+					Cell headerCell = headerRow.getCell(j);
+					if (headerCell == null)
+						continue;
+
+					String header = headerCell.getStringCellValue().trim();
+					if (header.isEmpty())
+						continue;
+
+					String value = new DataFormatter().formatCellValue(row.getCell(j)).trim();
+					
+					rowData.put(header, value);
+				}
+
+				// Add row data to list
+				data.add(rowData);
+			}
+		}
+
+		System.out.println("✅ Loaded " + data.size() + " rows from sheet: " + sheetName);
+		return data;
+	}
+
+	// ✅ Read all sheets from a workbook (sheet-by-sheet)
+	public Map<String, List<Map<String, String>>> readAllSheets(String excelPath) throws IOException {
+		Map<String, List<Map<String, String>>> allSheetData = new LinkedHashMap<>();
+
+		// Step 1: Get all sheet names
+		List<String> sheetNames = getSheetNames(excelPath);
+
+		// Step 2: Read each sheet using readSheet()
+		for (String sheetName : sheetNames) {
+			List<Map<String, String>> sheetData = readSheet(excelPath, sheetName);
+			allSheetData.put(sheetName, sheetData);
+		}
+
+		System.out.println("📘 Total Sheets Loaded: " + allSheetData.size());
+		return allSheetData;
+	}
+
+public List<Map<String, String>> getKeywordSteps(String moduleName) throws IOException {
+    return readSheet(FrameworkPaths.KEYWORD_PATH, moduleName);
+}
+
+public List<Map<String, String>> getTestDataRows(String sheetName) throws IOException {
+    return readSheet(FrameworkPaths.TESTDATA_PATH, sheetName);
+}
+
 }

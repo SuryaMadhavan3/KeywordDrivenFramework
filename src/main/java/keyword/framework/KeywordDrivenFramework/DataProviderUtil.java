@@ -6,13 +6,13 @@ import org.testng.annotations.DataProvider;
 
 public class DataProviderUtil {
 
-    private static final TestDataReader reader = new TestDataReader();
+	 private static final ExcelDataReader reader = new ExcelDataReader();
 
     /**
      * Generic reusable method to get test data for any sheet
      */
     private static Iterator<Object[]> getData(String sheetName) throws IOException {
-        List<Map<String, String>> testDataList = reader.getTestData(sheetName);
+        List<Map<String, String>> testDataList = reader.getTestDataRows(sheetName);
         List<Object[]> data = new ArrayList<>();
 
         for (Map<String, String> row : testDataList) {

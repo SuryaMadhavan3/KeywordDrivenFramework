@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="0" total="6" passed="5" failed="1" skipped="0">
+<testng-results ignored="0" total="6" passed="6" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2025-10-09T16:12:05 IST" name="Default suite" finished-at="2025-10-09T16:12:53 IST" duration-ms="47824">
+  <suite started-at="2025-10-10T18:36:40 IST" name="Default suite" finished-at="2025-10-10T18:38:17 IST" duration-ms="97026">
     <groups>
     </groups>
-    <test started-at="2025-10-09T16:12:05 IST" name="Default test" finished-at="2025-10-09T16:12:53 IST" duration-ms="47824">
+    <test started-at="2025-10-10T18:36:40 IST" name="Default test" finished-at="2025-10-10T18:38:17 IST" duration-ms="97026">
       <class name="keyword.framework.KeywordDrivenFramework.KeywordDrivenTest">
-        <test-method is-config="true" signature="setUp()[pri:0, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@66fdec9]" started-at="2025-10-09T16:12:05 IST" name="setUp" finished-at="2025-10-09T16:12:09 IST" duration-ms="3753" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@66fdec9]" started-at="2025-10-10T18:36:40 IST" name="setUp" finished-at="2025-10-10T18:36:44 IST" duration-ms="3609" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method signature="runLoginTest(java.util.Map)[pri:1, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@66fdec9]" started-at="2025-10-09T16:12:09 IST" name="runLoginTest" data-provider="LoginData" finished-at="2025-10-09T16:12:09 IST" duration-ms="191" status="FAIL">
+        <test-method signature="runLoginTest(java.util.Map)[pri:1, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@66fdec9]" started-at="2025-10-10T18:36:44 IST" name="runLoginTest" data-provider="LoginData" finished-at="2025-10-10T18:37:01 IST" duration-ms="16586" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -19,51 +19,10 @@
               </value>
             </param>
           </params>
-          <exception class="java.lang.IllegalStateException">
-            <message>
-              <![CDATA[Cannot get a STRING value from a NUMERIC cell]]>
-            </message>
-            <full-stacktrace>
-              <![CDATA[java.lang.IllegalStateException: Cannot get a STRING value from a NUMERIC cell
-at org.apache.poi.xssf.usermodel.XSSFCell.typeMismatch(XSSFCell.java:987)
-at org.apache.poi.xssf.usermodel.XSSFCell.getRichStringCellValue(XSSFCell.java:336)
-at org.apache.poi.xssf.usermodel.XSSFCell.getStringCellValue(XSSFCell.java:280)
-at keyword.framework.KeywordDrivenFramework.ExcelDataReader.readSheet(ExcelDataReader.java:46)
-at keyword.framework.KeywordDrivenFramework.KeywordDataReader.getKeywordSteps(KeywordDataReader.java:12)
-at keyword.framework.KeywordDrivenFramework.KeywordDrivenTest.runLoginTest(KeywordDrivenTest.java:24)
-at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
-at java.base/java.lang.reflect.Method.invoke(Method.java:580)
-at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
-at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:687)
-at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
-at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
-at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:995)
-at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
-at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
-at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
-at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
-at org.testng.TestRunner.privateRun(TestRunner.java:741)
-at org.testng.TestRunner.run(TestRunner.java:616)
-at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
-at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:413)
-at org.testng.SuiteRunner.privateRun(SuiteRunner.java:373)
-at org.testng.SuiteRunner.run(SuiteRunner.java:312)
-at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
-at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
-at org.testng.TestNG.runSuitesSequentially(TestNG.java:1274)
-at org.testng.TestNG.runSuitesLocally(TestNG.java:1208)
-at org.testng.TestNG.runSuites(TestNG.java:1112)
-at org.testng.TestNG.run(TestNG.java:1079)
-at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
-at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:293)
-at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:91)
-]]>
-            </full-stacktrace>
-          </exception> <!-- java.lang.IllegalStateException -->
           <reporter-output>
           </reporter-output>
         </test-method> <!-- runLoginTest -->
-        <test-method signature="runPurchaseTest(java.util.Map)[pri:2, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@66fdec9]" started-at="2025-10-09T16:12:10 IST" name="runPurchaseTest" data-provider="PurchaseData" finished-at="2025-10-09T16:12:41 IST" duration-ms="31244" status="PASS">
+        <test-method signature="runPurchaseTest(java.util.Map)[pri:2, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@66fdec9]" started-at="2025-10-10T18:37:01 IST" name="runPurchaseTest" data-provider="PurchaseData" finished-at="2025-10-10T18:37:28 IST" duration-ms="27306" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -74,7 +33,7 @@ at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:91)
           <reporter-output>
           </reporter-output>
         </test-method> <!-- runPurchaseTest -->
-        <test-method signature="runPurchaseTest(java.util.Map)[pri:2, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@66fdec9]" started-at="2025-10-09T16:12:41 IST" name="runPurchaseTest" data-provider="PurchaseData" finished-at="2025-10-09T16:12:44 IST" duration-ms="3076" status="PASS">
+        <test-method signature="runPurchaseTest(java.util.Map)[pri:2, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@66fdec9]" started-at="2025-10-10T18:37:28 IST" name="runPurchaseTest" data-provider="PurchaseData" finished-at="2025-10-10T18:37:55 IST" duration-ms="27035" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -85,7 +44,7 @@ at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:91)
           <reporter-output>
           </reporter-output>
         </test-method> <!-- runPurchaseTest -->
-        <test-method signature="runPurchaseTest(java.util.Map)[pri:2, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@66fdec9]" started-at="2025-10-09T16:12:44 IST" name="runPurchaseTest" data-provider="PurchaseData" finished-at="2025-10-09T16:12:47 IST" duration-ms="3089" status="PASS">
+        <test-method signature="runPurchaseTest(java.util.Map)[pri:2, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@66fdec9]" started-at="2025-10-10T18:37:55 IST" name="runPurchaseTest" data-provider="PurchaseData" finished-at="2025-10-10T18:38:11 IST" duration-ms="15976" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -96,7 +55,7 @@ at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:91)
           <reporter-output>
           </reporter-output>
         </test-method> <!-- runPurchaseTest -->
-        <test-method signature="runPurchaseTest(java.util.Map)[pri:2, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@66fdec9]" started-at="2025-10-09T16:12:47 IST" name="runPurchaseTest" data-provider="PurchaseData" finished-at="2025-10-09T16:12:50 IST" duration-ms="3086" status="PASS">
+        <test-method signature="runPurchaseTest(java.util.Map)[pri:2, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@66fdec9]" started-at="2025-10-10T18:38:11 IST" name="runPurchaseTest" data-provider="PurchaseData" finished-at="2025-10-10T18:38:14 IST" duration-ms="3087" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -107,7 +66,7 @@ at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:91)
           <reporter-output>
           </reporter-output>
         </test-method> <!-- runPurchaseTest -->
-        <test-method signature="runPurchaseTest(java.util.Map)[pri:2, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@66fdec9]" started-at="2025-10-09T16:12:50 IST" name="runPurchaseTest" data-provider="PurchaseData" finished-at="2025-10-09T16:12:53 IST" duration-ms="3071" status="PASS">
+        <test-method signature="runPurchaseTest(java.util.Map)[pri:2, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@66fdec9]" started-at="2025-10-10T18:38:14 IST" name="runPurchaseTest" data-provider="PurchaseData" finished-at="2025-10-10T18:38:17 IST" duration-ms="3079" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -118,7 +77,7 @@ at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:91)
           <reporter-output>
           </reporter-output>
         </test-method> <!-- runPurchaseTest -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@66fdec9]" started-at="2025-10-09T16:12:53 IST" name="tearDown" finished-at="2025-10-09T16:12:53 IST" duration-ms="14" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@66fdec9]" started-at="2025-10-10T18:38:17 IST" name="tearDown" finished-at="2025-10-10T18:38:17 IST" duration-ms="16" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->

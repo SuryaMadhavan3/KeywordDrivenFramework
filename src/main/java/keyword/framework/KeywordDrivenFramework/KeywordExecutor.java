@@ -34,8 +34,8 @@ public class KeywordExecutor extends BaseActions {
                     hover(locatorType, locatorValue);
                     break;
 
-                case "scrollto":
-                    scrollTo(locatorType, locatorValue);
+                case "scrollandclick":
+                	scrollAndClick(locatorType, locatorValue);
                     break;
 
                 case "optionalclick":
@@ -53,9 +53,10 @@ public class KeywordExecutor extends BaseActions {
                 case "switch":
                     switchToNewWindowSimple();
                     break;
-
+                
+                
                 case "switchtonewwindowandwait":
-                    switchToNewWindowAndWait(15); // Waits up to 15 seconds for a new window
+                    switchToNewWindowAndWait(20); 
                     break;
 
                 case "verifytext":

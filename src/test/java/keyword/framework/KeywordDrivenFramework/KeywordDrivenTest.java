@@ -8,7 +8,7 @@ import java.util.Map;
 public class KeywordDrivenTest extends BaseTest {
 
     private KeywordExecutor keywordExecutor;
-    private KeywordDataReader keywordReader;
+    private ExcelDataReader excelDataReader ;
 
     @BeforeClass
     public void setUp() throws IOException {
@@ -16,18 +16,18 @@ public class KeywordDrivenTest extends BaseTest {
         openBaseUrl();
 
         keywordExecutor = new KeywordExecutor(getDriver());
-        keywordReader = new KeywordDataReader();
+        excelDataReader= new ExcelDataReader();
     }
 
     @Test(dataProvider = "LoginData", dataProviderClass = DataProviderUtil.class, priority = 1)
     public void runLoginTest(Map<String, String> testData) throws IOException {
-        List<Map<String, String>> steps = keywordReader.getKeywordSteps("Login");
+        List<Map<String, String>> steps =excelDataReader.getKeywordSteps("Login");
         keywordExecutor.executeSteps(steps, "Login", testData);
     }
 
     @Test(dataProvider = "PurchaseData", dataProviderClass = DataProviderUtil.class, priority = 2)
     public void runPurchaseTest(Map<String, String> testData) throws IOException {
-        List<Map<String, String>> steps = keywordReader.getKeywordSteps("Purchase");
+        List<Map<String, String>> steps =excelDataReader.getKeywordSteps("Purchase");
         keywordExecutor.executeSteps(steps, "Purchase", testData);
     }
 
