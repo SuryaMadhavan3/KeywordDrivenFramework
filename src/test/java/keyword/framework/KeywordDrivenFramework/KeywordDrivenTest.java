@@ -1,3 +1,4 @@
+
 package keyword.framework.KeywordDrivenFramework;
 
 import org.testng.annotations.*;
@@ -30,7 +31,12 @@ public class KeywordDrivenTest extends BaseTest {
         List<Map<String, String>> steps =excelDataReader.getKeywordSteps("Purchase");
         keywordExecutor.executeSteps(steps, "Purchase", testData);
     }
-
+    
+    @Test(dataProvider = "RemoveData", dataProviderClass = DataProviderUtil.class, priority = 2)
+    public void runRemoveTest(Map<String, String> testData) throws IOException {
+        List<Map<String, String>> steps =excelDataReader.getKeywordSteps("Purchase");
+        keywordExecutor.executeSteps(steps, "RemoveProduct", testData);
+    }
     @AfterClass
     public void tearDown() {
         quitDriver();

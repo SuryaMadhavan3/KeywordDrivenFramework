@@ -1,3 +1,4 @@
+
 package keyword.framework.KeywordDrivenFramework;
 
 import org.openqa.selenium.WebDriver;
@@ -54,6 +55,9 @@ public class KeywordExecutor extends BaseActions {
                     switchToNewWindowSimple();
                     break;
                 
+                case "closeCurrentTabAndSwitchBack":
+                	closeCurrentTabAndSwitchBack();
+                    break;
                 
                 case "switchtonewwindowandwait":
                     switchToNewWindowAndWait(20); 

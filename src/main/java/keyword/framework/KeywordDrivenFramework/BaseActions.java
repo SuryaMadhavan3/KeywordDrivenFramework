@@ -4,6 +4,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.*;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -128,15 +129,19 @@ public class BaseActions {
     }
 
     public void switchToNewWindowSimple() {
-        String current = driver.getWindowHandle();
-        for (String handle : driver.getWindowHandles()) {
-            if (!handle.equals(current)) {
-                driver.switchTo().window(handle);
-                System.out.println("[ACTION] Switched to new window: " + handle);
-                break;
-            }
+        try {
+            // Get all open window handles
+            List<String> tabs = new ArrayList<>(driver.getWindowHandles());
+
+            // Switch to the last (newest) tab
+            driver.switchTo().window(tabs.get(tabs.size() - 1));
+
+            System.out.println("[ACTION] Switched to newest tab: " + driver.getCurrentUrl());
+        } catch (Exception e) {
+            System.err.println("❌ Failed to switch to newest tab: " + e.getMessage());
         }
     }
+
     
     public void switchToNewWindowAndWait(int timeoutSeconds) {
         try {
@@ -186,8 +191,15 @@ public class BaseActions {
             System.err.println("❌ Failed to switch or detect new window: " + e.getMessage());
         }
     }
-
-
+    
+    public void closeCurrentTabAndSwitchBack() {
+        List<String> tabs = new ArrayList<>(driver.getWindowHandles());
+        if (tabs.size() > 1) {
+            driver.close(); // closes current tab
+            driver.switchTo().window(tabs.get(tabs.size() - 2)); // go back to previous tab
+            System.out.println("[ACTION] Closed current tab and switched back.");
+        }
+    }
 
     
     public void dismissElementIfVisible(String locatorType, String locatorValue) {

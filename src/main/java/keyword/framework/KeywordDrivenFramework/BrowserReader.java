@@ -41,5 +41,3 @@ public class BrowserReader {
 	        return config;
 	    }
 	}
-
-

@@ -31,6 +31,10 @@ public class DataProviderUtil {
     public static Iterator<Object[]> purchaseData() throws IOException {
         return getData("Purchase");
     }
+    @DataProvider(name = "RemoveData")
+    public static Iterator<Object[]> removedata() throws IOException {
+        return getData("RemoveProduct");
+    }
 
     
 
