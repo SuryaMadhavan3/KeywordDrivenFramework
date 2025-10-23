@@ -22,50 +22,52 @@ public class ExcelDataReader {
 		return sheetNames;
 	}
 
-	// ✅ Read one sheet into list of maps
 	public List<Map<String, String>> readSheet(String excelPath, String sheetName) throws IOException {
-		List<Map<String, String>> data = new ArrayList<>();
+	    List<Map<String, String>> data = new ArrayList<>();
 
-		try (FileInputStream file = new FileInputStream(excelPath); XSSFWorkbook workbook = new XSSFWorkbook(file)) {
+	    try (FileInputStream file = new FileInputStream(excelPath);
+	         XSSFWorkbook workbook = new XSSFWorkbook(file)) {
 
-			Sheet sheet = workbook.getSheet(sheetName);
-			if (sheet == null)
-				throw new IOException("❌ Sheet not found: " + sheetName);
+	        Sheet sheet = workbook.getSheet(sheetName);
+	        if (sheet == null)
+	            throw new IOException("❌ Sheet not found: " + sheetName);
 
-			Row headerRow = sheet.getRow(0);
-			if (headerRow == null)
-				return data;
+	        Row headerRow = sheet.getRow(0);
+	        if (headerRow == null)
+	            return data;
 
-			// Loop through each data row
-			for (int i = 1; i <= sheet.getLastRowNum(); i++) {
-				Row row = sheet.getRow(i);
-				if (row == null)
-					continue;
+	        for (int i = 1; i <= sheet.getLastRowNum(); i++) {
+	            Row row = sheet.getRow(i);
+	            if (row == null) continue;
 
-				Map<String, String> rowData = new LinkedHashMap<>();
+	            boolean isRowEmpty = true;
+	            Map<String, String> rowData = new LinkedHashMap<>();
 
-				// Loop through each cell in the row
-				for (int j = 0; j < headerRow.getLastCellNum(); j++) {
-					Cell headerCell = headerRow.getCell(j);
-					if (headerCell == null)
-						continue;
+	            for (int j = 0; j < headerRow.getLastCellNum(); j++) {
+	                Cell headerCell = headerRow.getCell(j);
+	                if (headerCell == null) continue;
 
-					String header = headerCell.getStringCellValue().trim();
-					if (header.isEmpty())
-						continue;
+	                String header = headerCell.getStringCellValue().trim();
+	                if (header.isEmpty()) continue;
 
-					String value = new DataFormatter().formatCellValue(row.getCell(j)).trim();
-					
-					rowData.put(header, value);
-				}
+	                String cellValue = new DataFormatter().formatCellValue(row.getCell(j)).trim();
 
-				// Add row data to list
-				data.add(rowData);
-			}
-		}
+	                if (!cellValue.isEmpty()) {
+	                    isRowEmpty = false;  // Found a non-empty cell
+	                }
 
-		System.out.println("✅ Loaded " + data.size() + " rows from sheet: " + sheetName);
-		return data;
+	                rowData.put(header, cellValue);
+	            }
+
+	            // Only add the row if it has at least one non-empty cell
+	            if (!isRowEmpty) {
+	                data.add(rowData);
+	            }
+	        }
+	    }
+
+	    System.out.println("✅ Loaded " + data.size() + " rows from sheet: " + sheetName);
+	    return data;
 	}
 
 	// ✅ Read all sheets from a workbook (sheet-by-sheet)

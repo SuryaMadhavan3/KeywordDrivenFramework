@@ -94,7 +94,7 @@ public class KeywordExecutor extends BaseActions {
                 case "findelement":
                     System.out.println("[CHECK] Element found: " + findElement(locatorType, locatorValue));
                     break;
-
+        
                 case "noop":
                 case "comment":
                     System.out.println("📝 Comment: " + data);
@@ -126,7 +126,7 @@ public class KeywordExecutor extends BaseActions {
             String actualData = (dataKey != null && !dataKey.isEmpty())
                     ? testData.getOrDefault(dataKey, dataKey)
                     : null;
-
+                  
             System.out.println("➡️ Executing: " + action +
                     " | Locator: [" + locatorType + "=" + locatorValue + "] | Data: " + actualData);
 
