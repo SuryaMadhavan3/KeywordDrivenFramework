@@ -5,6 +5,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.*;
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -73,15 +74,11 @@ public class BaseActions {
 	public void scrollAndClick(String locatorType, String locatorValue) {
 		try {
 			WebElement element = wait.until(ExpectedConditions.elementToBeClickable(getBy(locatorType, locatorValue)));
-
 			// Scroll into view
 			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", element);
-
 			// Click element
 			element.click();
-
 			System.out.println("✅ Scrolled and clicked element: " + locatorValue);
-
 		} catch (Exception e) {
 			System.err.println("❌ Failed to scroll and click: " + locatorValue + " | " + e.getMessage());
 		}
@@ -215,6 +212,22 @@ public class BaseActions {
 		} catch (Exception e) {
 			System.err.println("❌ Failed to switch or detect new window: " + e.getMessage());
 		}
+	}
+	
+	
+	public String switchToChildwindow()
+	{
+		Set<String> allwindowhandles = driver.getWindowHandles();
+		Iterator<String> it = allwindowhandles.iterator();
+		String parentId = it.next();
+		String childId = it.next();
+		driver.switchTo().window(childId);
+		return parentId;
+	}
+	
+	public void switchwindow(String windowId)
+	{
+		driver.switchTo().window(windowId);
 	}
 
 	public void closeCurrentTabAndSwitchBack() {

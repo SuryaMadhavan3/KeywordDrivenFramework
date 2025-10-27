@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.*;
 import org.testng.annotations.DataProvider;
 
+
 public class DataProviderUtil {
 
 	 private static final ExcelDataReader reader = new ExcelDataReader();
@@ -20,7 +21,8 @@ public class DataProviderUtil {
         }
         return data.iterator();
     }
-
+    
+    
     // 🔹 One-liner DataProviders
     @DataProvider(name = "LoginData")
     public static Iterator<Object[]> loginData() throws IOException {
