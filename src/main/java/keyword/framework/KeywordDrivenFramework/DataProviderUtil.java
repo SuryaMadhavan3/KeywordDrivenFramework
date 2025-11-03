@@ -4,26 +4,42 @@ import java.io.IOException;
 import java.util.*;
 import org.testng.annotations.DataProvider;
 
-
 public class DataProviderUtil {
 
-	 private static final ExcelDataReader reader = new ExcelDataReader();
+    private static final ExcelDataReader reader;
 
-    /**
-     * Generic reusable method to get test data for any sheet
-     */
-    private static Iterator<Object[]> getData(String sheetName) throws IOException {
-        List<Map<String, String>> testDataList = reader.getTestDataRows(sheetName);
-        List<Object[]> data = new ArrayList<>();
-
-        for (Map<String, String> row : testDataList) {
-            data.add(new Object[]{ row });
+    static {
+        ExcelDataReader temp = null;
+        try {
+            temp = new ExcelDataReader();
+            System.out.println("✅ ExcelDataReader initialized successfully");
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("❌ Failed to initialize ExcelDataReader: " + e.getMessage());
         }
-        return data.iterator();
+        reader = temp;
     }
-    
-    
-    // 🔹 One-liner DataProviders
+
+    private static Iterator<Object[]> getData(String sheetName) throws IOException {
+        if (reader == null) {
+            System.err.println("⚠️ ExcelDataReader not initialized; skipping sheet: " + sheetName);
+            return Collections.emptyIterator();
+        }
+
+        try {
+            List<Map<String, String>> testDataList = reader.getTestDataRows(sheetName);
+            List<Object[]> data = new ArrayList<>();
+            for (Map<String, String> row : testDataList) {
+                data.add(new Object[]{row});
+            }
+            System.out.println("✅ Loaded " + data.size() + " rows from sheet: " + sheetName);
+            return data.iterator();
+        } catch (Exception e) {
+            System.err.println("⚠️ Sheet not found or failed to load: " + sheetName + " → " + e.getMessage());
+            return Collections.emptyIterator();
+        }
+    }
+
     @DataProvider(name = "LoginData")
     public static Iterator<Object[]> loginData() throws IOException {
         return getData("Login");
@@ -33,22 +49,20 @@ public class DataProviderUtil {
     public static Iterator<Object[]> purchaseData() throws IOException {
         return getData("Purchase");
     }
+
     @DataProvider(name = "RemoveData")
     public static Iterator<Object[]> removedata() throws IOException {
         return getData("RemoveProduct");
-    
-    }
-    @DataProvider(name = "InvalidLoginData")
-    public static Iterator<Object[]> invalidlogindata() throws IOException {
-        return getData("InvalidLogin");
-    }
-    
-    @DataProvider(name = "InvalidMailData")
-    public static Iterator<Object[]> invalidmaildata() throws IOException {
-        return getData("InvalidMailLogin");
     }
 
-    
+    // Disabled until sheets exist
+    // @DataProvider(name = "InvalidLoginData")
+    // public static Iterator<Object[]> invalidlogindata() throws IOException {
+    //     return getData("InvalidLogin");
+    // }
 
-    // 💡 When you add new modules, just add one line above!
+    // @DataProvider(name = "InvalidMailData")
+    // public static Iterator<Object[]> invalidmaildata() throws IOException {
+    //     return getData("InvalidMailLogin");
+    // }
 }

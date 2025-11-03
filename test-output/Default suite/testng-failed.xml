@@ -6,8 +6,12 @@
       <class name="keyword.framework.KeywordDrivenFramework.KeywordDrivenTest">
         <methods>
           <include name="setUp"/>
+          <include name="runRemoveTest"/>
+          <include name="cleanupProfiles1"/>
           <include name="tearDown"/>
-          <include name="runLoginTest" invocation-numbers="0"/>
+          <include name="runPurchaseTest"/>
+          <include name="runLoginTest"/>
+          <include name="runSignoutTest"/>
         </methods>
       </class> <!-- keyword.framework.KeywordDrivenFramework.KeywordDrivenTest -->
     </classes>

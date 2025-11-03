@@ -5,7 +5,7 @@ public class FrameworkPaths {
     // ✅ Base folder for all test data files
     public static final String BASE_TESTDATA_DIR ="C:\\Users\\flintsoftuser\\Documents\\testData\\";
 
-    // ✅ Excel file paths
+ // ✅ Excel file paths
     public static final String CONFIG_PATH =
             BASE_TESTDATA_DIR + "ConfigData.xlsx";
 
@@ -21,4 +21,5 @@ public class FrameworkPaths {
 
     public static final String DRIVERS_PATH =
             System.getProperty("user.dir") + "/drivers/";
+
 }

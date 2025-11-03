@@ -1,13 +1,21 @@
 package keyword.framework.KeywordDrivenFramework;
 
-import org.openqa.selenium.*;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.*;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class BaseActions {
 
@@ -20,7 +28,8 @@ public class BaseActions {
 		this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
 		this.actions = new Actions(driver);
 	}
-
+	
+	//Locator Converter
 	public By getBy(String locatorType, String locatorValue) {
 		switch (locatorType.toLowerCase()) {
 
@@ -169,7 +178,7 @@ public class BaseActions {
 	public void switchToNewWindowAndWait(int timeoutSeconds) {
 		try {
 			// Save the current window and URL before the click
-			String originalHandle = driver.getWindowHandle();
+			//String originalHandle = driver.getWindowHandle();
 			Set<String> oldHandles = driver.getWindowHandles();
 
 			System.out.println("Current window handles before click: " + oldHandles.size());

@@ -1,28 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="0" total="12" passed="12" failed="0" skipped="0">
+<testng-results ignored="0" total="24" passed="24" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2025-10-27T17:44:37 IST" name="Default suite" finished-at="2025-10-27T17:46:42 IST" duration-ms="125169">
+  <suite started-at="2025-11-03T17:19:03 IST" name="KeywordDrivenSuite" finished-at="2025-11-03T17:22:20 IST" duration-ms="196818">
     <groups>
     </groups>
-    <test started-at="2025-10-27T17:44:37 IST" name="Default test" finished-at="2025-10-27T17:46:42 IST" duration-ms="125169">
+    <test started-at="2025-11-03T17:19:03 IST" name="AmazonParallelTest" finished-at="2025-11-03T17:22:20 IST" duration-ms="196818">
       <class name="keyword.framework.KeywordDrivenFramework.KeywordDrivenTest">
-        <test-method is-config="true" signature="setUp()[pri:0, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@4ce1d6d0]" started-at="2025-10-27T17:44:37 IST" name="setUp" finished-at="2025-10-27T17:44:40 IST" duration-ms="3561" status="PASS">
+        <test-method is-config="true" signature="preWarmDrivers()[pri:0, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@2571066a, instance params:[{TestCaseID=Login, UsersName=User2, PhoneNumber=6383175201, Password=Surya*2403}]]" started-at="2025-11-03T17:19:03 IST" name="preWarmDrivers" finished-at="2025-11-03T17:19:03 IST" duration-ms="8" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- preWarmDrivers -->
+        <test-method is-config="true" signature="setUp()[pri:0, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@30331109, instance params:[{TestCaseID=Login, UsersName=User1, PhoneNumber=7339585788, Password=Mali29@Amazon}]]" started-at="2025-11-03T17:19:03 IST" name="setUp" finished-at="2025-11-03T17:19:14 IST" duration-ms="11535" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method signature="runLoginTest(java.util.Map)[pri:1, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@4ce1d6d0]" started-at="2025-10-27T17:44:41 IST" name="runLoginTest" data-provider="LoginData" finished-at="2025-10-27T17:44:52 IST" duration-ms="11429" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[{TestCaseID=Login, UsersName=User1, PhoneNumber=7339585788, Password=Mali29@Amazon}]]>
-              </value>
-            </param>
-          </params>
+        <test-method is-config="true" signature="setUp()[pri:0, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@2571066a, instance params:[{TestCaseID=Login, UsersName=User2, PhoneNumber=6383175201, Password=Surya*2403}]]" started-at="2025-11-03T17:19:03 IST" name="setUp" finished-at="2025-11-03T17:19:12 IST" duration-ms="9394" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method signature="runLoginTest()[pri:1, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@2571066a, instance params:[{TestCaseID=Login, UsersName=User2, PhoneNumber=6383175201, Password=Surya*2403}]]" started-at="2025-11-03T17:19:12 IST" name="runLoginTest" finished-at="2025-11-03T17:19:22 IST" duration-ms="9267" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- runLoginTest -->
-        <test-method signature="runPurchaseTest(java.util.Map)[pri:2, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@4ce1d6d0]" started-at="2025-10-27T17:44:52 IST" name="runPurchaseTest" data-provider="PurchaseData" finished-at="2025-10-27T17:45:05 IST" duration-ms="12482" status="PASS">
+        <test-method signature="runLoginTest()[pri:1, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@30331109, instance params:[{TestCaseID=Login, UsersName=User1, PhoneNumber=7339585788, Password=Mali29@Amazon}]]" started-at="2025-11-03T17:19:14 IST" name="runLoginTest" finished-at="2025-11-03T17:19:26 IST" duration-ms="11342" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- runLoginTest -->
+        <test-method signature="runPurchaseTest(java.util.Map)[pri:2, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@2571066a, instance params:[{TestCaseID=Login, UsersName=User2, PhoneNumber=6383175201, Password=Surya*2403}]]" started-at="2025-11-03T17:19:22 IST" name="runPurchaseTest" data-provider="PurchaseData" finished-at="2025-11-03T17:19:44 IST" duration-ms="22421" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -33,7 +38,18 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- runPurchaseTest -->
-        <test-method signature="runPurchaseTest(java.util.Map)[pri:2, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@4ce1d6d0]" started-at="2025-10-27T17:45:05 IST" name="runPurchaseTest" data-provider="PurchaseData" finished-at="2025-10-27T17:45:20 IST" duration-ms="15147" status="PASS">
+        <test-method signature="runPurchaseTest(java.util.Map)[pri:2, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@30331109, instance params:[{TestCaseID=Login, UsersName=User1, PhoneNumber=7339585788, Password=Mali29@Amazon}]]" started-at="2025-11-03T17:19:26 IST" name="runPurchaseTest" data-provider="PurchaseData" finished-at="2025-11-03T17:19:46 IST" duration-ms="19717" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[{TestCaseID=Purchase, Product=Apple iPhone 14}]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- runPurchaseTest -->
+        <test-method signature="runPurchaseTest(java.util.Map)[pri:2, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@2571066a, instance params:[{TestCaseID=Login, UsersName=User2, PhoneNumber=6383175201, Password=Surya*2403}]]" started-at="2025-11-03T17:19:44 IST" name="runPurchaseTest" data-provider="PurchaseData" finished-at="2025-11-03T17:20:09 IST" duration-ms="24766" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -44,7 +60,18 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- runPurchaseTest -->
-        <test-method signature="runPurchaseTest(java.util.Map)[pri:2, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@4ce1d6d0]" started-at="2025-10-27T17:45:20 IST" name="runPurchaseTest" data-provider="PurchaseData" finished-at="2025-10-27T17:45:33 IST" duration-ms="12850" status="PASS">
+        <test-method signature="runPurchaseTest(java.util.Map)[pri:2, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@30331109, instance params:[{TestCaseID=Login, UsersName=User1, PhoneNumber=7339585788, Password=Mali29@Amazon}]]" started-at="2025-11-03T17:19:46 IST" name="runPurchaseTest" data-provider="PurchaseData" finished-at="2025-11-03T17:20:10 IST" duration-ms="24102" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[{TestCaseID=Purchase, Product=SAMSUNG Galaxy S25}]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- runPurchaseTest -->
+        <test-method signature="runPurchaseTest(java.util.Map)[pri:2, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@2571066a, instance params:[{TestCaseID=Login, UsersName=User2, PhoneNumber=6383175201, Password=Surya*2403}]]" started-at="2025-11-03T17:20:09 IST" name="runPurchaseTest" data-provider="PurchaseData" finished-at="2025-11-03T17:20:59 IST" duration-ms="50462" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -55,7 +82,18 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- runPurchaseTest -->
-        <test-method signature="runPurchaseTest(java.util.Map)[pri:2, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@4ce1d6d0]" started-at="2025-10-27T17:45:33 IST" name="runPurchaseTest" data-provider="PurchaseData" finished-at="2025-10-27T17:45:45 IST" duration-ms="12293" status="PASS">
+        <test-method signature="runPurchaseTest(java.util.Map)[pri:2, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@30331109, instance params:[{TestCaseID=Login, UsersName=User1, PhoneNumber=7339585788, Password=Mali29@Amazon}]]" started-at="2025-11-03T17:20:10 IST" name="runPurchaseTest" data-provider="PurchaseData" finished-at="2025-11-03T17:20:57 IST" duration-ms="47429" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[{TestCaseID=Purchase, Product=OnePlus Nord}]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- runPurchaseTest -->
+        <test-method signature="runPurchaseTest(java.util.Map)[pri:2, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@30331109, instance params:[{TestCaseID=Login, UsersName=User1, PhoneNumber=7339585788, Password=Mali29@Amazon}]]" started-at="2025-11-03T17:20:57 IST" name="runPurchaseTest" data-provider="PurchaseData" finished-at="2025-11-03T17:21:13 IST" duration-ms="15984" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -66,7 +104,18 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- runPurchaseTest -->
-        <test-method signature="runPurchaseTest(java.util.Map)[pri:2, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@4ce1d6d0]" started-at="2025-10-27T17:45:45 IST" name="runPurchaseTest" data-provider="PurchaseData" finished-at="2025-10-27T17:45:58 IST" duration-ms="12861" status="PASS">
+        <test-method signature="runPurchaseTest(java.util.Map)[pri:2, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@2571066a, instance params:[{TestCaseID=Login, UsersName=User2, PhoneNumber=6383175201, Password=Surya*2403}]]" started-at="2025-11-03T17:20:59 IST" name="runPurchaseTest" data-provider="PurchaseData" finished-at="2025-11-03T17:21:15 IST" duration-ms="15450" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[{TestCaseID=Purchase, Product=POCO M6}]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- runPurchaseTest -->
+        <test-method signature="runPurchaseTest(java.util.Map)[pri:2, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@30331109, instance params:[{TestCaseID=Login, UsersName=User1, PhoneNumber=7339585788, Password=Mali29@Amazon}]]" started-at="2025-11-03T17:21:13 IST" name="runPurchaseTest" data-provider="PurchaseData" finished-at="2025-11-03T17:21:34 IST" duration-ms="20999" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -77,7 +126,18 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- runPurchaseTest -->
-        <test-method signature="runRemoveTest(java.util.Map)[pri:3, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@4ce1d6d0]" started-at="2025-10-27T17:45:58 IST" name="runRemoveTest" data-provider="RemoveData" finished-at="2025-10-27T17:46:05 IST" duration-ms="7063" status="PASS">
+        <test-method signature="runPurchaseTest(java.util.Map)[pri:2, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@2571066a, instance params:[{TestCaseID=Login, UsersName=User2, PhoneNumber=6383175201, Password=Surya*2403}]]" started-at="2025-11-03T17:21:15 IST" name="runPurchaseTest" data-provider="PurchaseData" finished-at="2025-11-03T17:21:37 IST" duration-ms="22414" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[{TestCaseID=Purchase, Product=Redmi 15}]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- runPurchaseTest -->
+        <test-method signature="runRemoveTest(java.util.Map)[pri:3, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@30331109, instance params:[{TestCaseID=Login, UsersName=User1, PhoneNumber=7339585788, Password=Mali29@Amazon}]]" started-at="2025-11-03T17:21:34 IST" name="runRemoveTest" data-provider="RemoveData" finished-at="2025-11-03T17:21:41 IST" duration-ms="7417" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -88,7 +148,18 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- runRemoveTest -->
-        <test-method signature="runRemoveTest(java.util.Map)[pri:3, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@4ce1d6d0]" started-at="2025-10-27T17:46:05 IST" name="runRemoveTest" data-provider="RemoveData" finished-at="2025-10-27T17:46:11 IST" duration-ms="6409" status="PASS">
+        <test-method signature="runRemoveTest(java.util.Map)[pri:3, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@2571066a, instance params:[{TestCaseID=Login, UsersName=User2, PhoneNumber=6383175201, Password=Surya*2403}]]" started-at="2025-11-03T17:21:37 IST" name="runRemoveTest" data-provider="RemoveData" finished-at="2025-11-03T17:21:45 IST" duration-ms="7646" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[{TestCaseID=RemoveProduct, Product=Apple iPhone 14}]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- runRemoveTest -->
+        <test-method signature="runRemoveTest(java.util.Map)[pri:3, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@30331109, instance params:[{TestCaseID=Login, UsersName=User1, PhoneNumber=7339585788, Password=Mali29@Amazon}]]" started-at="2025-11-03T17:21:41 IST" name="runRemoveTest" data-provider="RemoveData" finished-at="2025-11-03T17:21:48 IST" duration-ms="6765" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -99,7 +170,18 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- runRemoveTest -->
-        <test-method signature="runRemoveTest(java.util.Map)[pri:3, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@4ce1d6d0]" started-at="2025-10-27T17:46:11 IST" name="runRemoveTest" data-provider="RemoveData" finished-at="2025-10-27T17:46:18 IST" duration-ms="6635" status="PASS">
+        <test-method signature="runRemoveTest(java.util.Map)[pri:3, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@2571066a, instance params:[{TestCaseID=Login, UsersName=User2, PhoneNumber=6383175201, Password=Surya*2403}]]" started-at="2025-11-03T17:21:45 IST" name="runRemoveTest" data-provider="RemoveData" finished-at="2025-11-03T17:21:52 IST" duration-ms="7106" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[{TestCaseID=RemoveProduct, Product=SAMSUNG Galaxy S25}]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- runRemoveTest -->
+        <test-method signature="runRemoveTest(java.util.Map)[pri:3, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@30331109, instance params:[{TestCaseID=Login, UsersName=User1, PhoneNumber=7339585788, Password=Mali29@Amazon}]]" started-at="2025-11-03T17:21:48 IST" name="runRemoveTest" data-provider="RemoveData" finished-at="2025-11-03T17:21:55 IST" duration-ms="6683" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -110,7 +192,18 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- runRemoveTest -->
-        <test-method signature="runRemoveTest(java.util.Map)[pri:3, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@4ce1d6d0]" started-at="2025-10-27T17:46:18 IST" name="runRemoveTest" data-provider="RemoveData" finished-at="2025-10-27T17:46:25 IST" duration-ms="6676" status="PASS">
+        <test-method signature="runRemoveTest(java.util.Map)[pri:3, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@2571066a, instance params:[{TestCaseID=Login, UsersName=User2, PhoneNumber=6383175201, Password=Surya*2403}]]" started-at="2025-11-03T17:21:52 IST" name="runRemoveTest" data-provider="RemoveData" finished-at="2025-11-03T17:21:59 IST" duration-ms="7056" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[{TestCaseID=RemoveProduct, Product=OnePlus Nord}]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- runRemoveTest -->
+        <test-method signature="runRemoveTest(java.util.Map)[pri:3, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@30331109, instance params:[{TestCaseID=Login, UsersName=User1, PhoneNumber=7339585788, Password=Mali29@Amazon}]]" started-at="2025-11-03T17:21:55 IST" name="runRemoveTest" data-provider="RemoveData" finished-at="2025-11-03T17:22:02 IST" duration-ms="7067" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -121,7 +214,18 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- runRemoveTest -->
-        <test-method signature="runRemoveTest(java.util.Map)[pri:3, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@4ce1d6d0]" started-at="2025-10-27T17:46:25 IST" name="runRemoveTest" data-provider="RemoveData" finished-at="2025-10-27T17:46:31 IST" duration-ms="6512" status="PASS">
+        <test-method signature="runRemoveTest(java.util.Map)[pri:3, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@2571066a, instance params:[{TestCaseID=Login, UsersName=User2, PhoneNumber=6383175201, Password=Surya*2403}]]" started-at="2025-11-03T17:21:59 IST" name="runRemoveTest" data-provider="RemoveData" finished-at="2025-11-03T17:22:06 IST" duration-ms="6791" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[{TestCaseID=RemoveProduct, Product=POCO M6}]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- runRemoveTest -->
+        <test-method signature="runRemoveTest(java.util.Map)[pri:3, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@30331109, instance params:[{TestCaseID=Login, UsersName=User1, PhoneNumber=7339585788, Password=Mali29@Amazon}]]" started-at="2025-11-03T17:22:02 IST" name="runRemoveTest" data-provider="RemoveData" finished-at="2025-11-03T17:22:09 IST" duration-ms="6863" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -132,15 +236,38 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- runRemoveTest -->
-        <test-method signature="runSignoutTest()[pri:4, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@4ce1d6d0]" started-at="2025-10-27T17:46:31 IST" name="runSignoutTest" finished-at="2025-10-27T17:46:42 IST" duration-ms="10613" status="PASS">
+        <test-method signature="runRemoveTest(java.util.Map)[pri:3, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@2571066a, instance params:[{TestCaseID=Login, UsersName=User2, PhoneNumber=6383175201, Password=Surya*2403}]]" started-at="2025-11-03T17:22:06 IST" name="runRemoveTest" data-provider="RemoveData" finished-at="2025-11-03T17:22:19 IST" duration-ms="13568" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[{TestCaseID=RemoveProduct, Product=Redmi 15}]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- runRemoveTest -->
+        <test-method signature="runSignoutTest()[pri:4, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@30331109, instance params:[{TestCaseID=Login, UsersName=User1, PhoneNumber=7339585788, Password=Mali29@Amazon}]]" started-at="2025-11-03T17:22:09 IST" name="runSignoutTest" finished-at="2025-11-03T17:22:11 IST" duration-ms="2357" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- runSignoutTest -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@4ce1d6d0]" started-at="2025-10-27T17:46:42 IST" name="tearDown" finished-at="2025-10-27T17:46:42 IST" duration-ms="386" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@30331109, instance params:[{TestCaseID=Login, UsersName=User1, PhoneNumber=7339585788, Password=Mali29@Amazon}]]" started-at="2025-11-03T17:22:11 IST" name="tearDown" finished-at="2025-11-03T17:22:12 IST" duration-ms="370" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
+        <test-method signature="runSignoutTest()[pri:4, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@2571066a, instance params:[{TestCaseID=Login, UsersName=User2, PhoneNumber=6383175201, Password=Surya*2403}]]" started-at="2025-11-03T17:22:12 IST" name="runSignoutTest" finished-at="2025-11-03T17:22:14 IST" duration-ms="2384" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- runSignoutTest -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@2571066a, instance params:[{TestCaseID=Login, UsersName=User2, PhoneNumber=6383175201, Password=Surya*2403}]]" started-at="2025-11-03T17:22:19 IST" name="tearDown" finished-at="2025-11-03T17:22:20 IST" duration-ms="340" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method is-config="true" signature="cleanupProfiles1()[pri:0, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@2571066a, instance params:[{TestCaseID=Login, UsersName=User2, PhoneNumber=6383175201, Password=Surya*2403}]]" started-at="2025-11-03T17:22:20 IST" name="cleanupProfiles1" finished-at="2025-11-03T17:22:20 IST" duration-ms="1" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- cleanupProfiles1 -->
       </class> <!-- keyword.framework.KeywordDrivenFramework.KeywordDrivenTest -->
-    </test> <!-- Default test -->
-  </suite> <!-- Default suite -->
+    </test> <!-- AmazonParallelTest -->
+  </suite> <!-- KeywordDrivenSuite -->
 </testng-results>
