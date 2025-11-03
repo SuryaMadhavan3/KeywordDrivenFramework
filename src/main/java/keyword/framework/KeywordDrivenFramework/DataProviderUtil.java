@@ -39,6 +39,36 @@ public class DataProviderUtil {
             return Collections.emptyIterator();
         }
     }
+    
+ // inside DataProviderUtil class (add these methods)
+
+    private static Iterator<Object[]> getDataWide(String sheetName, String productPrefix) throws IOException {
+        if (reader == null) {
+            System.err.println("⚠️ ExcelDataReader not initialized; skipping sheet: " + sheetName);
+            return Collections.emptyIterator();
+        }
+
+        List<Object[]> data = new ArrayList<>();
+        List<Map<String, String>> rows = reader.getTestDataRows(sheetName);
+
+        for (Map<String, String> row : rows) {
+            // find all keys that start with the productPrefix (case-insensitive)
+            for (String key : new ArrayList<>(row.keySet())) {
+                if (key != null && key.toLowerCase().startsWith(productPrefix.toLowerCase())) {
+                    String productValue = row.get(key);
+                    if (productValue != null && !productValue.trim().isEmpty()) {
+                        // create a new map for this product preserving other metadata (like Test Case id)
+                        Map<String, String> single = new HashMap<>(row);
+                        single.put("Product", productValue.trim()); // canonical key your steps expect
+                        data.add(new Object[]{single});
+                    }
+                }
+            }
+        }
+        System.out.println("✅ Expanded wide rows to " + data.size() + " single-product rows for sheet: " + sheetName);
+        return data.iterator();
+    }
+
 
     @DataProvider(name = "LoginData")
     public static Iterator<Object[]> loginData() throws IOException {
@@ -47,7 +77,7 @@ public class DataProviderUtil {
 
     @DataProvider(name = "PurchaseData")
     public static Iterator<Object[]> purchaseData() throws IOException {
-        return getData("Purchase");
+        return getDataWide("Purchase", "Product");
     }
 
     @DataProvider(name = "RemoveData")
