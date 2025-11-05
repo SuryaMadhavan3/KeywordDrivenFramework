@@ -91,6 +91,25 @@ public class ExcelDataReader {
 		System.out.println("📘 Total Sheets Loaded: " + allSheetData.size());
 		return allSheetData;
 	}
+	
+    // ✅ New method: group each test case by its products
+    public Map<String, List<String>> getGroupedTestData(String sheetName) throws IOException {
+        List<Map<String, String>> rows = readSheet(FrameworkPaths.TESTDATA_PATH, sheetName);
+        Map<String, List<String>> groupedData = new LinkedHashMap<>();
+
+        for (Map<String, String> row : rows) {
+            String testCaseId = row.get("TestCaseID");
+            List<String> products = new ArrayList<>();
+
+            for (Map.Entry<String, String> entry : row.entrySet()) {
+                if (entry.getKey().toLowerCase().startsWith("product") && !entry.getValue().isEmpty()) {
+                    products.add(entry.getValue());
+                }
+            }
+            groupedData.put(testCaseId, products);
+        }
+        return groupedData;
+    }
 
 	public List<Map<String, String>> getKeywordSteps(String moduleName) throws IOException {
 		return readSheet(FrameworkPaths.KEYWORD_PATH, moduleName);

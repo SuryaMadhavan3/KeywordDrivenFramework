@@ -78,8 +78,6 @@ public class BaseTest {
 
 		if (browserName.equalsIgnoreCase("chrome")) {
 			options.addArguments("--start-maximized");
-			options.addArguments("--disable-webauthn");
-			options.addArguments("--disable-features=PasswordManagerOnboarding,WebAuthn,CredentialManagementAPI,AutofillServerCommunication");
 			options.addArguments("--disable-save-password-bubble");
 			options.addArguments("--disable-extensions");
 			options.addArguments("--no-first-run");
@@ -102,15 +100,13 @@ public class BaseTest {
 		}
 		getDriver().get(baseUrl);
 	}
-
-	/*
-	 * @AfterSuite(alwaysRun = true) public void cleanupProfiles() throws
-	 * IOException { Path baseDir = Paths.get(System.getProperty("user.dir"),
-	 * "tempProfiles"); if (Files.exists(baseDir)) {
-	 * Files.walk(baseDir).sorted(Comparator.reverseOrder()).map(Path::toFile).
-	 * forEach(File::delete);
-	 * System.out.println("🧹 Deleted all temporary Chrome profiles."); } }
-	 */
+	
+	public void reopenBrowser(String userName) throws IOException {
+		quitDriver();
+		System.out.println("🔁 Reopening browser for user: "+userName);
+		initializeDriver(userName);
+		openBaseUrl();
+	}
 	
 	@BeforeSuite
 	public void preWarmDrivers() {

@@ -68,6 +68,20 @@ public class DataProviderUtil {
         System.out.println("✅ Expanded wide rows to " + data.size() + " single-product rows for sheet: " + sheetName);
         return data.iterator();
     }
+    
+    @DataProvider(name = "PurchaseGroupData", parallel = true)
+    public static Iterator<Object[]> groupedPurchaseData() throws IOException {
+        Map<String, List<String>> grouped = reader.getGroupedTestData("Purchase");
+        List<Object[]> data = new ArrayList<>();
+
+        for (Map.Entry<String, List<String>> entry : grouped.entrySet()) {
+            Map<String, Object> testCase = new HashMap<>();
+            testCase.put("TestCaseID", entry.getKey());
+            testCase.put("Products", entry.getValue());
+            data.add(new Object[]{testCase});
+        }
+        return data.iterator();
+    }
 
 
     @DataProvider(name = "LoginData")
