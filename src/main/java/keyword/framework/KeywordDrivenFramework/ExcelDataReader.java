@@ -99,15 +99,22 @@ public class ExcelDataReader {
 
         for (Map<String, String> row : rows) {
             String testCaseId = row.get("TestCaseID");
+            if (testCaseId == null || testCaseId.trim().isEmpty()) continue;
+
             List<String> products = new ArrayList<>();
 
             for (Map.Entry<String, String> entry : row.entrySet()) {
-                if (entry.getKey().toLowerCase().startsWith("product") && !entry.getValue().isEmpty()) {
-                    products.add(entry.getValue());
+                String key = entry.getKey();
+                String val = entry.getValue();
+                if (key != null && key.toLowerCase().startsWith("product") && val != null && !val.trim().isEmpty()) {
+                    products.add(val.trim());
                 }
             }
-            groupedData.put(testCaseId, products);
+            if (!products.isEmpty()) {
+                groupedData.put(testCaseId.trim(), products);
+            }
         }
+        System.out.println("✅ Grouped " + groupedData.size() + " testcases from sheet: " + sheetName);
         return groupedData;
     }
 

@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Utils {
+public class ScreenShotUtils {
 
     public static String captureScreenshot(WebDriver driver, String testName) {
         if (driver == null) {

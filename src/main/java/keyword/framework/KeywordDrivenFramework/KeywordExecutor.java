@@ -13,7 +13,8 @@ public class KeywordExecutor extends BaseActions {
     }
 
     public void executeKeyword(String action, String locatorType, String locatorValue, String data) {
-        if (action == null || action.trim().isEmpty()) {
+        if (action == null || action.trim().isEmpty()) 
+        {
             System.out.println("⚠️ Empty action. Skipping step.");
             return;
         }

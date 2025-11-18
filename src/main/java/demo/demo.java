@@ -21,6 +21,7 @@ public class demo {
 		
 		ChromeOptions options = new ChromeOptions();
 		options.addArguments("user-data-dir=" + System.getProperty("user.dir") + "/tempProfile");
+		options.addArguments("--start-maximized");
 		options.addArguments("--disable-web-authn"); // lowercase, works better
 		options.addArguments("--disable-password-manager-reauthentication");
 		options.addArguments("--disable-notifications");
@@ -33,7 +34,7 @@ public class demo {
 		Actions actions = new Actions(driver);
 		
 		driver.get("https://www.amazon.in/");
-		driver.manage().window().maximize();
+	
 		
 	
 		WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div[id='nav-link-accountList']")));

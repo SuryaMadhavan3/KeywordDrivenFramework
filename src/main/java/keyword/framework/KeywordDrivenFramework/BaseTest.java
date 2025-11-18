@@ -71,9 +71,10 @@ public class BaseTest {
 		WebDriver driver;
 		ChromeOptions options = new ChromeOptions();
 
-		Path baseProfiles = Paths.get(System.getProperty("user.dir"), "tempProfiles", Thread.currentThread().getName());
+		Path baseProfiles = Paths.get(System.getProperty("user.dir"), "tempProfiles");
 		Files.createDirectories(baseProfiles);
 		Path userProfileDir = baseProfiles.resolve(userName + "_profile");
+		Files.createDirectories(userProfileDir);
 		options.addArguments("user-data-dir=" + userProfileDir.toAbsolutePath().toString());
 
 		if (browserName.equalsIgnoreCase("chrome")) {
@@ -108,10 +109,10 @@ public class BaseTest {
 		openBaseUrl();
 	}
 	
-	@BeforeSuite
+	/*@BeforeSuite
 	public void preWarmDrivers() {
 	    new Thread(() -> new ChromeDriver().quit()).start();
-	}
+	}*/
 
 	
 	@AfterSuite(alwaysRun = true)

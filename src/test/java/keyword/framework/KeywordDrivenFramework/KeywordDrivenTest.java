@@ -7,83 +7,117 @@ import java.util.*;
 @Listeners({ keyword.framework.KeywordDrivenFramework.TestListener.class })
 public class KeywordDrivenTest extends BaseTest {
 
-	private KeywordExecutor keywordExecutor;
-	private ExcelDataReader excelDataReader;
+	private KeywordExecutor executor;
+	private ExcelDataReader excel;
 	private String userName;
 	private Map<String, String> loginData;
 
-	// Static map to track user/browser usage
-	private static final Map<String, Boolean> userBusy = Collections.synchronizedMap(new HashMap<>());
+	// ASSIGN USER (FROM XML)
+	@BeforeClass
+	@Parameters("UserName")
+	public void setUser(String user) throws IOException {
+		this.userName = user;
+		System.out.println("♟️ Runner assigned to user: " + userName);
 
-	// ✅ Factory constructor: creates a separate instance per user
-	@Factory(dataProvider = "LoginData", dataProviderClass = DataProviderUtil.class)
-	public KeywordDrivenTest(Map<String, String> testData) {
-		this.loginData = testData;
-		this.userName = testData.get("UsersName");
-		userBusy.put(userName, false);
+		excel = new ExcelDataReader();
+		List<Map<String, String>> rows = excel.getTestDataRows("Login");
+
+		for (Map<String, String> row : rows) {
+			if (row.get("UsersName").equalsIgnoreCase(userName)) {
+				loginData = row;
+				break;
+			}
+		}
+
+		if (loginData == null) {
+			throw new RuntimeException("Login data not found for user: " + userName);
+		}
 	}
 
-	@BeforeClass
-	public void setUp() throws IOException {
-		System.out.println("🚀 Launching browser for: " + userName);
+	// LOGIN ONCE PER USER → PROFILE SAVES SESSION
+	@Test(priority = 1)
+	public void loginOnce() throws IOException {
+
+		System.out.println("🔑 [" + userName + "] Performing one-time login...");
+
 		initializeDriver(userName);
 		openBaseUrl();
-		keywordExecutor = new KeywordExecutor(getDriver());
-		excelDataReader = new ExcelDataReader();
-	}
 
-	@Test(priority = 1)
-	public void runLoginTest() throws IOException {
-		List<Map<String, String>> steps = excelDataReader.getKeywordSteps("Login");
-		keywordExecutor.executeSteps(steps, "Login", loginData);
-		System.out.println("✅ Login done for user: " + userName);
-		quitDriver(); // close after login to save session in profile
-	}
-
-	@Test(priority = 2, dataProvider = "PurchaseData", dataProviderClass = DataProviderUtil.class)
-	public void runPurchaseTest(String testCaseId, List<String> products) throws IOException, InterruptedException {
+		executor = new KeywordExecutor(getDriver());
+		List<Map<String, String>> steps = excel.getKeywordSteps("Login");
+		executor.executeSteps(steps, "Login", loginData);
 		
-		String currentUser =  getNextFreeUser(); // find free browser
-		System.out.println("🧩 Assigning test case to user: " + currentUser);
-        userBusy.put(currentUser, true);  // mark it busy
-        
-        reopenBrowser(currentUser);  // reopen browser
-     
-        for (String product : products) {
-            keywordExecutor.executeSteps(steps, "Purchase", Map.of("Product", product));
-        }
-	
-		quitDriver();  // close after done
-        userBusy.put(currentUser, false);  // mark it free
-        System.out.println("✅ Completed Purchase test for user: " + currentUser);
+		System.out.println("✔ Login completed for user: " + userName);
+
+		quitDriver(); // keep Chrome profile with session
 	}
 
+	// PURCHASE EXECUTION USING SHARED QUEUE
+	@Test(priority = 2, dataProvider = "PurchaseGroupData", dataProviderClass = DataProviderUtil.class)
+	public void runPurchases(String dummy) throws Exception {
 
-	@Test(priority = 3, dataProvider = "RemoveData", dataProviderClass = DataProviderUtil.class)
-	public void runRemoveTest(Map<String, String> testData) throws IOException {
-		List<Map<String, String>> steps = excelDataReader.getKeywordSteps("RemoveProduct");
-		keywordExecutor.executeSteps(steps, "RemoveProduct", testData);
-	}
+        while (true) {
 
-	@Test(priority = 4)
-	public void runSignoutTest() throws IOException {
-		List<Map<String, String>> steps = excelDataReader.getKeywordSteps("SignOut");
-		keywordExecutor.executeSteps(steps, "SignOut", new HashMap<>());
-	}
-	
-	private synchronized String getNextFreeUser() throws InterruptedException {
-		while (true) {
-            for (Map.Entry<String, Boolean> entry : userBusy.entrySet()) {
-                if (!entry.getValue()) {
-                    return entry.getKey();
-                }
+            Map<String, Object> testCase = TestCaseQueue.getNextPurchaseCase();
+            if (testCase == null) {
+                System.out.println("🛑 [" + userName + "] No more Purchase test cases.");
+                break;
             }
-            Thread.sleep(1000); // wait a second if both busy
-        }
-	}
 
-	@AfterClass(alwaysRun = true)
-	public void tearDown() {
-		quitDriver();
+            executeTestCase("Purchase", testCase);
+        }
+    }
+
+	 // REMOVEPRODUCT EXECUTION USING SHARED QUEUE
+    /*@Test(priority = 3, dataProvider = "RemoveGroupData", dataProviderClass = DataProviderUtil.class)
+    public void runRemoveCases(String dummy) throws Exception {
+
+        while (true) {
+
+            Map<String, Object> testCase = TestCaseQueue.getNextRemoveCase();
+            if (testCase == null) {
+                System.out.println("🛑 [" + userName + "] No more RemoveProduct test cases.");
+                break;
+            }
+
+            executeTestCase("RemoveProduct", testCase);
+        }
+    }*/
+
+    // COMMON EXECUTION METHOD FOR ANY MODULE
+    private void executeTestCase(String module, Map<String, Object> testCase) throws Exception {
+
+        String tcId = (String) testCase.get("TestCaseID");
+        @SuppressWarnings("unchecked")
+        List<String> products = (List<String>) testCase.get("Products");
+
+        System.out.println("\n🚀 [" + userName + "] Running " + module + " TestCase: " + tcId);
+
+        // Open browser with saved login
+        initializeDriver(userName);
+        openBaseUrl();
+
+        executor = new KeywordExecutor(getDriver());
+        List<Map<String, String>> steps = excel.getKeywordSteps(module);
+
+        for (String product : products) {
+            Map<String, String> data = Map.of("Product", product);
+            System.out.println("➡ [" + userName + "][TC:" + tcId + "] Product: " + product);
+            executor.executeSteps(steps, module, data);
+        }
+
+        System.out.println("✔ Completed TC " + tcId + " by user " + userName);
+
+        quitDriver(); // close browser after each test case
+    }
+
+	@AfterMethod(alwaysRun = true)
+	public void closeBrowserAfterTC() {
+		try {
+			quitDriver();
+			System.out.println("🧹 [" + userName + "] Browser closed after test case.");
+		} catch (Exception e) {
+			System.out.println("⚠️ [" + userName + "] Error closing browser: " + e.getMessage());
+		}
 	}
 }

@@ -16,7 +16,7 @@ public class ExtentManager {
             extent = new ExtentReports();
             extent.attachReporter(spark);
             extent.setSystemInfo("Framework", "Keyword Driven");
-            extent.setSystemInfo("Tester", "Malini");
+            extent.setSystemInfo("Tester", "Surya");
         }
         return extent;
     }

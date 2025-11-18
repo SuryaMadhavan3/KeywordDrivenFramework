@@ -55,11 +55,11 @@ function toggleAllBoxes() {
 <body>
 <h2 align='center'>AmazonParallelTest</h2><table border='1' align="center">
 <tr>
-<td>Tests passed/Failed/Skipped:</td><td>44/0/0</td>
+<td>Tests passed/Failed/Skipped:</td><td>0/0/5</td>
 </tr><tr>
-<td>Started on:</td><td>Mon Nov 03 18:39:47 IST 2025</td>
+<td>Started on:</td><td>Mon Nov 17 15:50:04 IST 2025</td>
 </tr>
-<tr><td>Total time:</td><td>485 seconds (485300 ms)</td>
+<tr><td>Total time:</td><td>0 seconds (896 ms)</td>
 </tr><tr>
 <td>Included groups:</td><td></td>
 </tr><tr>
@@ -67,8 +67,8 @@ function toggleAllBoxes() {
 </tr>
 </table><p/>
 <small><i>(Hover the method name to see the test class name)</i></small><p/>
-<table width='100%' border='1' class='invocation-passed'>
-<tr><td colspan='4' align='center'><b>PASSED TESTS</b></td></tr>
+<table width='100%' border='1' class='invocation-failed'>
+<tr><td colspan='4' align='center'><b>FAILED CONFIGURATIONS</b></td></tr>
 <tr><td><b>Test method</b></td>
 <td><b>Attribute(s)</b></td>
 <td width="30%"><b>Exception</b></td>
@@ -76,225 +76,208 @@ function toggleAllBoxes() {
 <td><b>Instance</b></td>
 </tr>
 <tr>
-<td title='keyword.framework.KeywordDrivenFramework.KeywordDrivenTest.runPurchaseTest()'><b>runPurchaseTest</b><br>Test class: keyword.framework.KeywordDrivenFramework.KeywordDrivenTest<br>Parameters: {Product 1=SAMSUNG Galaxy S24, TestCaseID=PC_02, Product 2=SAMSUNG Galaxy S25, Product=SAMSUNG Galaxy S25, Product 3=SAMSUNG Galaxy A55}</td>
-<td></td>
-<td>15</td>
-<td>keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@2571066a</td></tr>
+<td title='keyword.framework.KeywordDrivenFramework.KeywordDrivenTest.setUp()'><b>setUp</b><br>Test class: keyword.framework.KeywordDrivenFramework.KeywordDrivenTest</td>
+<td><div><pre>org.testng.TestNGException: 
+Parameter &apos;userName&apos; is required by BeforeClass on method setUp but has not been marked @Optional or defined
+in C:\Users\flintsoftuser\KeywordDrivenFramework\testng.xml
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1095)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:619)
+	at java.base/java.lang.Thread.run(Thread.java:1447)
+... Removed 8 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace1857202741", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1857202741'><pre>org.testng.TestNGException: 
+Parameter &apos;userName&apos; is required by BeforeClass on method setUp but has not been marked @Optional or defined
+in C:\Users\flintsoftuser\KeywordDrivenFramework\testng.xml
+	at org.testng.internal.Parameters.createParams(Parameters.java:264)
+	at org.testng.internal.Parameters.createParametersForMethod(Parameters.java:352)
+	at org.testng.internal.Parameters.createParameters(Parameters.java:690)
+	at org.testng.internal.Parameters.createConfigurationParameters(Parameters.java:163)
+	at org.testng.internal.invokers.ConfigInvoker.invokeConfigurations(ConfigInvoker.java:313)
+	at org.testng.internal.invokers.TestMethodWorker.invokeBeforeClassMethods(TestMethodWorker.java:188)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+	at org.testng.internal.thread.graph.TestNGFutureTask.run(TestNGFutureTask.java:22)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1095)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:619)
+	at java.base/java.lang.Thread.run(Thread.java:1447)
+</pre></div></td>
+<td>-1763374805</td>
+<td>keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@1b7c473a</td></tr>
+</table><p>
+<table width='100%' border='1' class='invocation-skipped'>
+<tr><td colspan='4' align='center'><b>SKIPPED CONFIGURATIONS</b></td></tr>
+<tr><td><b>Test method</b></td>
+<td><b>Attribute(s)</b></td>
+<td width="30%"><b>Exception</b></td>
+<td width="10%"><b>Time (seconds)</b></td>
+<td><b>Instance</b></td>
+</tr>
 <tr>
-<td title='keyword.framework.KeywordDrivenFramework.KeywordDrivenTest.runPurchaseTest()'><b>runPurchaseTest</b><br>Test class: keyword.framework.KeywordDrivenFramework.KeywordDrivenTest<br>Parameters: {Product 1=iQOO Neo 10R, TestCaseID=PC_05, Product 2=iQOO 9, Product=iQOO Z10, Product 3=iQOO Z10}</td>
+<td title='keyword.framework.KeywordDrivenFramework.KeywordDrivenTest.tearDown()'><b>tearDown</b><br>Test class: keyword.framework.KeywordDrivenFramework.KeywordDrivenTest</td>
 <td></td>
-<td>13</td>
-<td>keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@2571066a</td></tr>
+<td>0</td>
+<td>keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@1b7c473a</td></tr>
+</table><p>
+<table width='100%' border='1' class='invocation-skipped'>
+<tr><td colspan='4' align='center'><b>SKIPPED TESTS</b></td></tr>
+<tr><td><b>Test method</b></td>
+<td><b>Attribute(s)</b></td>
+<td width="30%"><b>Exception</b></td>
+<td width="10%"><b>Time (seconds)</b></td>
+<td><b>Instance</b></td>
+</tr>
 <tr>
-<td title='keyword.framework.KeywordDrivenFramework.KeywordDrivenTest.runRemoveTest()'><b>runRemoveTest</b><br>Test class: keyword.framework.KeywordDrivenFramework.KeywordDrivenTest<br>Parameters: {TestCaseID=RemoveProduct, Product=Apple iPhone 14}</td>
-<td></td>
-<td>13</td>
-<td>keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@2571066a</td></tr>
+<td title='keyword.framework.KeywordDrivenFramework.KeywordDrivenTest.runPurchaseFlow()'><b>runPurchaseFlow</b><br>Test class: keyword.framework.KeywordDrivenFramework.KeywordDrivenTest<br>Parameters: {TestCaseID=PC_01, Products=[Apple iPhone 14, Apple iPhone 15, Apple iPhone 13]}</td>
+<td><div><pre>org.testng.TestNGException: 
+Parameter &apos;userName&apos; is required by BeforeClass on method setUp but has not been marked @Optional or defined
+in C:\Users\flintsoftuser\KeywordDrivenFramework\testng.xml
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1095)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:619)
+	at java.base/java.lang.Thread.run(Thread.java:1447)
+... Removed 8 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace451676557", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace451676557'><pre>org.testng.TestNGException: 
+Parameter &apos;userName&apos; is required by BeforeClass on method setUp but has not been marked @Optional or defined
+in C:\Users\flintsoftuser\KeywordDrivenFramework\testng.xml
+	at org.testng.internal.Parameters.createParams(Parameters.java:264)
+	at org.testng.internal.Parameters.createParametersForMethod(Parameters.java:352)
+	at org.testng.internal.Parameters.createParameters(Parameters.java:690)
+	at org.testng.internal.Parameters.createConfigurationParameters(Parameters.java:163)
+	at org.testng.internal.invokers.ConfigInvoker.invokeConfigurations(ConfigInvoker.java:313)
+	at org.testng.internal.invokers.TestMethodWorker.invokeBeforeClassMethods(TestMethodWorker.java:188)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+	at org.testng.internal.thread.graph.TestNGFutureTask.run(TestNGFutureTask.java:22)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1095)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:619)
+	at java.base/java.lang.Thread.run(Thread.java:1447)
+</pre></div></td>
+<td>0</td>
+<td>keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@1b7c473a</td></tr>
 <tr>
-<td title='keyword.framework.KeywordDrivenFramework.KeywordDrivenTest.runLoginTest()'><b>runLoginTest</b><br>Test class: keyword.framework.KeywordDrivenFramework.KeywordDrivenTest</td>
-<td></td>
-<td>8</td>
-<td>keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@2571066a</td></tr>
+<td title='keyword.framework.KeywordDrivenFramework.KeywordDrivenTest.runPurchaseFlow()'><b>runPurchaseFlow</b><br>Test class: keyword.framework.KeywordDrivenFramework.KeywordDrivenTest<br>Parameters: {TestCaseID=PC_03, Products=[OnePlus Nord 5, OnePlus Nord CE5, OnePlus 13]}</td>
+<td><div><pre>org.testng.TestNGException: 
+Parameter &apos;userName&apos; is required by BeforeClass on method setUp but has not been marked @Optional or defined
+in C:\Users\flintsoftuser\KeywordDrivenFramework\testng.xml
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1095)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:619)
+	at java.base/java.lang.Thread.run(Thread.java:1447)
+... Removed 8 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace1745098019", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1745098019'><pre>org.testng.TestNGException: 
+Parameter &apos;userName&apos; is required by BeforeClass on method setUp but has not been marked @Optional or defined
+in C:\Users\flintsoftuser\KeywordDrivenFramework\testng.xml
+	at org.testng.internal.Parameters.createParams(Parameters.java:264)
+	at org.testng.internal.Parameters.createParametersForMethod(Parameters.java:352)
+	at org.testng.internal.Parameters.createParameters(Parameters.java:690)
+	at org.testng.internal.Parameters.createConfigurationParameters(Parameters.java:163)
+	at org.testng.internal.invokers.ConfigInvoker.invokeConfigurations(ConfigInvoker.java:313)
+	at org.testng.internal.invokers.TestMethodWorker.invokeBeforeClassMethods(TestMethodWorker.java:188)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+	at org.testng.internal.thread.graph.TestNGFutureTask.run(TestNGFutureTask.java:22)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1095)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:619)
+	at java.base/java.lang.Thread.run(Thread.java:1447)
+</pre></div></td>
+<td>0</td>
+<td>keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@1b7c473a</td></tr>
 <tr>
-<td title='keyword.framework.KeywordDrivenFramework.KeywordDrivenTest.runRemoveTest()'><b>runRemoveTest</b><br>Test class: keyword.framework.KeywordDrivenFramework.KeywordDrivenTest<br>Parameters: {TestCaseID=RemoveProduct, Product=Redmi 15}</td>
-<td></td>
-<td>20</td>
-<td>keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@2571066a</td></tr>
+<td title='keyword.framework.KeywordDrivenFramework.KeywordDrivenTest.runPurchaseFlow()'><b>runPurchaseFlow</b><br>Test class: keyword.framework.KeywordDrivenFramework.KeywordDrivenTest<br>Parameters: {TestCaseID=PC_05, Products=[iQOO Neo 10R, iQOO 9, iQOO Z10]}</td>
+<td><div><pre>org.testng.TestNGException: 
+Parameter &apos;userName&apos; is required by BeforeClass on method setUp but has not been marked @Optional or defined
+in C:\Users\flintsoftuser\KeywordDrivenFramework\testng.xml
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1095)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:619)
+	at java.base/java.lang.Thread.run(Thread.java:1447)
+... Removed 8 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace1740521287", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1740521287'><pre>org.testng.TestNGException: 
+Parameter &apos;userName&apos; is required by BeforeClass on method setUp but has not been marked @Optional or defined
+in C:\Users\flintsoftuser\KeywordDrivenFramework\testng.xml
+	at org.testng.internal.Parameters.createParams(Parameters.java:264)
+	at org.testng.internal.Parameters.createParametersForMethod(Parameters.java:352)
+	at org.testng.internal.Parameters.createParameters(Parameters.java:690)
+	at org.testng.internal.Parameters.createConfigurationParameters(Parameters.java:163)
+	at org.testng.internal.invokers.ConfigInvoker.invokeConfigurations(ConfigInvoker.java:313)
+	at org.testng.internal.invokers.TestMethodWorker.invokeBeforeClassMethods(TestMethodWorker.java:188)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+	at org.testng.internal.thread.graph.TestNGFutureTask.run(TestNGFutureTask.java:22)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1095)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:619)
+	at java.base/java.lang.Thread.run(Thread.java:1447)
+</pre></div></td>
+<td>0</td>
+<td>keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@1b7c473a</td></tr>
 <tr>
-<td title='keyword.framework.KeywordDrivenFramework.KeywordDrivenTest.runPurchaseTest()'><b>runPurchaseTest</b><br>Test class: keyword.framework.KeywordDrivenFramework.KeywordDrivenTest<br>Parameters: {Product 1=SAMSUNG Galaxy S24, TestCaseID=PC_02, Product 2=SAMSUNG Galaxy S25, Product=SAMSUNG Galaxy S24, Product 3=SAMSUNG Galaxy A55}</td>
-<td></td>
-<td>14</td>
-<td>keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@2571066a</td></tr>
+<td title='keyword.framework.KeywordDrivenFramework.KeywordDrivenTest.runPurchaseFlow()'><b>runPurchaseFlow</b><br>Test class: keyword.framework.KeywordDrivenFramework.KeywordDrivenTest<br>Parameters: {TestCaseID=PC_02, Products=[SAMSUNG Galaxy S24, SAMSUNG Galaxy S25, SAMSUNG Galaxy A55]}</td>
+<td><div><pre>org.testng.TestNGException: 
+Parameter &apos;userName&apos; is required by BeforeClass on method setUp but has not been marked @Optional or defined
+in C:\Users\flintsoftuser\KeywordDrivenFramework\testng.xml
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1095)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:619)
+	at java.base/java.lang.Thread.run(Thread.java:1447)
+... Removed 8 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace1941785232", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1941785232'><pre>org.testng.TestNGException: 
+Parameter &apos;userName&apos; is required by BeforeClass on method setUp but has not been marked @Optional or defined
+in C:\Users\flintsoftuser\KeywordDrivenFramework\testng.xml
+	at org.testng.internal.Parameters.createParams(Parameters.java:264)
+	at org.testng.internal.Parameters.createParametersForMethod(Parameters.java:352)
+	at org.testng.internal.Parameters.createParameters(Parameters.java:690)
+	at org.testng.internal.Parameters.createConfigurationParameters(Parameters.java:163)
+	at org.testng.internal.invokers.ConfigInvoker.invokeConfigurations(ConfigInvoker.java:313)
+	at org.testng.internal.invokers.TestMethodWorker.invokeBeforeClassMethods(TestMethodWorker.java:188)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+	at org.testng.internal.thread.graph.TestNGFutureTask.run(TestNGFutureTask.java:22)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1095)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:619)
+	at java.base/java.lang.Thread.run(Thread.java:1447)
+</pre></div></td>
+<td>0</td>
+<td>keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@1b7c473a</td></tr>
 <tr>
-<td title='keyword.framework.KeywordDrivenFramework.KeywordDrivenTest.runPurchaseTest()'><b>runPurchaseTest</b><br>Test class: keyword.framework.KeywordDrivenFramework.KeywordDrivenTest<br>Parameters: {Product 1=SAMSUNG Galaxy S24, TestCaseID=PC_02, Product 2=SAMSUNG Galaxy S25, Product=SAMSUNG Galaxy A55, Product 3=SAMSUNG Galaxy A55}</td>
-<td></td>
-<td>22</td>
-<td>keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@2571066a</td></tr>
-<tr>
-<td title='keyword.framework.KeywordDrivenFramework.KeywordDrivenTest.runPurchaseTest()'><b>runPurchaseTest</b><br>Test class: keyword.framework.KeywordDrivenFramework.KeywordDrivenTest<br>Parameters: {Product 1=boAt Nirvana Ion, TestCaseID=PC_04, Product 2=boAt Airdopes Prime 701 ANC, Product=boAt Nirvana Ion, Product 3=boAt 2025 Launch Airdopes 219}</td>
-<td></td>
-<td>33</td>
-<td>keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@30331109</td></tr>
-<tr>
-<td title='keyword.framework.KeywordDrivenFramework.KeywordDrivenTest.runPurchaseTest()'><b>runPurchaseTest</b><br>Test class: keyword.framework.KeywordDrivenFramework.KeywordDrivenTest<br>Parameters: {Product 1=iQOO Neo 10R, TestCaseID=PC_05, Product 2=iQOO 9, Product=iQOO 9, Product 3=iQOO Z10}</td>
-<td></td>
-<td>16</td>
-<td>keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@30331109</td></tr>
-<tr>
-<td title='keyword.framework.KeywordDrivenFramework.KeywordDrivenTest.runRemoveTest()'><b>runRemoveTest</b><br>Test class: keyword.framework.KeywordDrivenFramework.KeywordDrivenTest<br>Parameters: {TestCaseID=RemoveProduct, Product=OnePlus Nord}</td>
-<td></td>
-<td>14</td>
-<td>keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@30331109</td></tr>
-<tr>
-<td title='keyword.framework.KeywordDrivenFramework.KeywordDrivenTest.runPurchaseTest()'><b>runPurchaseTest</b><br>Test class: keyword.framework.KeywordDrivenFramework.KeywordDrivenTest<br>Parameters: {Product 1=Apple iPhone 14, TestCaseID=PC_01, Product 2=Apple iPhone 15, Product=Apple iPhone 13, Product 3=Apple iPhone 13}</td>
-<td></td>
-<td>29</td>
-<td>keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@30331109</td></tr>
-<tr>
-<td title='keyword.framework.KeywordDrivenFramework.KeywordDrivenTest.runPurchaseTest()'><b>runPurchaseTest</b><br>Test class: keyword.framework.KeywordDrivenFramework.KeywordDrivenTest<br>Parameters: {Product 1=SAMSUNG Galaxy S24, TestCaseID=PC_02, Product 2=SAMSUNG Galaxy S25, Product=SAMSUNG Galaxy S24, Product 3=SAMSUNG Galaxy A55}</td>
-<td></td>
-<td>23</td>
-<td>keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@30331109</td></tr>
-<tr>
-<td title='keyword.framework.KeywordDrivenFramework.KeywordDrivenTest.runPurchaseTest()'><b>runPurchaseTest</b><br>Test class: keyword.framework.KeywordDrivenFramework.KeywordDrivenTest<br>Parameters: {Product 1=iQOO Neo 10R, TestCaseID=PC_05, Product 2=iQOO 9, Product=iQOO Neo 10R, Product 3=iQOO Z10}</td>
-<td></td>
-<td>15</td>
-<td>keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@2571066a</td></tr>
-<tr>
-<td title='keyword.framework.KeywordDrivenFramework.KeywordDrivenTest.runPurchaseTest()'><b>runPurchaseTest</b><br>Test class: keyword.framework.KeywordDrivenFramework.KeywordDrivenTest<br>Parameters: {Product 1=OnePlus Nord 5, TestCaseID=PC_03, Product 2=OnePlus Nord CE5, Product=OnePlus Nord 5, Product 3=OnePlus 13}</td>
-<td></td>
-<td>16</td>
-<td>keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@2571066a</td></tr>
-<tr>
-<td title='keyword.framework.KeywordDrivenFramework.KeywordDrivenTest.runPurchaseTest()'><b>runPurchaseTest</b><br>Test class: keyword.framework.KeywordDrivenFramework.KeywordDrivenTest<br>Parameters: {Product 1=Apple iPhone 14, TestCaseID=PC_01, Product 2=Apple iPhone 15, Product=Apple iPhone 15, Product 3=Apple iPhone 13}</td>
-<td></td>
-<td>13</td>
-<td>keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@30331109</td></tr>
-<tr>
-<td title='keyword.framework.KeywordDrivenFramework.KeywordDrivenTest.runRemoveTest()'><b>runRemoveTest</b><br>Test class: keyword.framework.KeywordDrivenFramework.KeywordDrivenTest<br>Parameters: {TestCaseID=RemoveProduct, Product=POCO M6}</td>
-<td></td>
-<td>6</td>
-<td>keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@30331109</td></tr>
-<tr>
-<td title='keyword.framework.KeywordDrivenFramework.KeywordDrivenTest.runPurchaseTest()'><b>runPurchaseTest</b><br>Test class: keyword.framework.KeywordDrivenFramework.KeywordDrivenTest<br>Parameters: {Product 1=boAt Nirvana Ion, TestCaseID=PC_04, Product 2=boAt Airdopes Prime 701 ANC, Product=boAt Nirvana Ion, Product 3=boAt 2025 Launch Airdopes 219}</td>
-<td></td>
-<td>34</td>
-<td>keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@2571066a</td></tr>
-<tr>
-<td title='keyword.framework.KeywordDrivenFramework.KeywordDrivenTest.runPurchaseTest()'><b>runPurchaseTest</b><br>Test class: keyword.framework.KeywordDrivenFramework.KeywordDrivenTest<br>Parameters: {Product 1=OnePlus Nord 5, TestCaseID=PC_03, Product 2=OnePlus Nord CE5, Product=OnePlus 13, Product 3=OnePlus 13}</td>
-<td></td>
-<td>20</td>
-<td>keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@30331109</td></tr>
-<tr>
-<td title='keyword.framework.KeywordDrivenFramework.KeywordDrivenTest.runPurchaseTest()'><b>runPurchaseTest</b><br>Test class: keyword.framework.KeywordDrivenFramework.KeywordDrivenTest<br>Parameters: {Product 1=SAMSUNG Galaxy S24, TestCaseID=PC_02, Product 2=SAMSUNG Galaxy S25, Product=SAMSUNG Galaxy A55, Product 3=SAMSUNG Galaxy A55}</td>
-<td></td>
-<td>23</td>
-<td>keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@30331109</td></tr>
-<tr>
-<td title='keyword.framework.KeywordDrivenFramework.KeywordDrivenTest.runPurchaseTest()'><b>runPurchaseTest</b><br>Test class: keyword.framework.KeywordDrivenFramework.KeywordDrivenTest<br>Parameters: {Product 1=Apple iPhone 14, TestCaseID=PC_01, Product 2=Apple iPhone 15, Product=Apple iPhone 14, Product 3=Apple iPhone 13}</td>
-<td></td>
-<td>13</td>
-<td>keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@30331109</td></tr>
-<tr>
-<td title='keyword.framework.KeywordDrivenFramework.KeywordDrivenTest.runSignoutTest()'><b>runSignoutTest</b><br>Test class: keyword.framework.KeywordDrivenFramework.KeywordDrivenTest</td>
-<td></td>
-<td>2</td>
-<td>keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@30331109</td></tr>
-<tr>
-<td title='keyword.framework.KeywordDrivenFramework.KeywordDrivenTest.runPurchaseTest()'><b>runPurchaseTest</b><br>Test class: keyword.framework.KeywordDrivenFramework.KeywordDrivenTest<br>Parameters: {Product 1=Apple iPhone 14, TestCaseID=PC_01, Product 2=Apple iPhone 15, Product=Apple iPhone 14, Product 3=Apple iPhone 13}</td>
-<td></td>
-<td>14</td>
-<td>keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@2571066a</td></tr>
-<tr>
-<td title='keyword.framework.KeywordDrivenFramework.KeywordDrivenTest.runPurchaseTest()'><b>runPurchaseTest</b><br>Test class: keyword.framework.KeywordDrivenFramework.KeywordDrivenTest<br>Parameters: {Product 1=boAt Nirvana Ion, TestCaseID=PC_04, Product 2=boAt Airdopes Prime 701 ANC, Product=boAt 2025 Launch Airdopes 219, Product 3=boAt 2025 Launch Airdopes 219}</td>
-<td></td>
-<td>30</td>
-<td>keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@2571066a</td></tr>
-<tr>
-<td title='keyword.framework.KeywordDrivenFramework.KeywordDrivenTest.runRemoveTest()'><b>runRemoveTest</b><br>Test class: keyword.framework.KeywordDrivenFramework.KeywordDrivenTest<br>Parameters: {TestCaseID=RemoveProduct, Product=Apple iPhone 14}</td>
-<td></td>
-<td>7</td>
-<td>keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@30331109</td></tr>
-<tr>
-<td title='keyword.framework.KeywordDrivenFramework.KeywordDrivenTest.runRemoveTest()'><b>runRemoveTest</b><br>Test class: keyword.framework.KeywordDrivenFramework.KeywordDrivenTest<br>Parameters: {TestCaseID=RemoveProduct, Product=SAMSUNG Galaxy S25}</td>
-<td></td>
-<td>16</td>
-<td>keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@30331109</td></tr>
-<tr>
-<td title='keyword.framework.KeywordDrivenFramework.KeywordDrivenTest.runLoginTest()'><b>runLoginTest</b><br>Test class: keyword.framework.KeywordDrivenFramework.KeywordDrivenTest</td>
-<td></td>
-<td>9</td>
-<td>keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@30331109</td></tr>
-<tr>
-<td title='keyword.framework.KeywordDrivenFramework.KeywordDrivenTest.runPurchaseTest()'><b>runPurchaseTest</b><br>Test class: keyword.framework.KeywordDrivenFramework.KeywordDrivenTest<br>Parameters: {Product 1=iQOO Neo 10R, TestCaseID=PC_05, Product 2=iQOO 9, Product=iQOO Z10, Product 3=iQOO Z10}</td>
-<td></td>
-<td>28</td>
-<td>keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@30331109</td></tr>
-<tr>
-<td title='keyword.framework.KeywordDrivenFramework.KeywordDrivenTest.runPurchaseTest()'><b>runPurchaseTest</b><br>Test class: keyword.framework.KeywordDrivenFramework.KeywordDrivenTest<br>Parameters: {Product 1=SAMSUNG Galaxy S24, TestCaseID=PC_02, Product 2=SAMSUNG Galaxy S25, Product=SAMSUNG Galaxy S25, Product 3=SAMSUNG Galaxy A55}</td>
-<td></td>
-<td>21</td>
-<td>keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@30331109</td></tr>
-<tr>
-<td title='keyword.framework.KeywordDrivenFramework.KeywordDrivenTest.runPurchaseTest()'><b>runPurchaseTest</b><br>Test class: keyword.framework.KeywordDrivenFramework.KeywordDrivenTest<br>Parameters: {Product 1=OnePlus Nord 5, TestCaseID=PC_03, Product 2=OnePlus Nord CE5, Product=OnePlus Nord CE5, Product 3=OnePlus 13}</td>
-<td></td>
-<td>25</td>
-<td>keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@2571066a</td></tr>
-<tr>
-<td title='keyword.framework.KeywordDrivenFramework.KeywordDrivenTest.runPurchaseTest()'><b>runPurchaseTest</b><br>Test class: keyword.framework.KeywordDrivenFramework.KeywordDrivenTest<br>Parameters: {Product 1=boAt Nirvana Ion, TestCaseID=PC_04, Product 2=boAt Airdopes Prime 701 ANC, Product=boAt Airdopes Prime 701 ANC, Product 3=boAt 2025 Launch Airdopes 219}</td>
-<td></td>
-<td>37</td>
-<td>keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@2571066a</td></tr>
-<tr>
-<td title='keyword.framework.KeywordDrivenFramework.KeywordDrivenTest.runPurchaseTest()'><b>runPurchaseTest</b><br>Test class: keyword.framework.KeywordDrivenFramework.KeywordDrivenTest<br>Parameters: {Product 1=Apple iPhone 14, TestCaseID=PC_01, Product 2=Apple iPhone 15, Product=Apple iPhone 13, Product 3=Apple iPhone 13}</td>
-<td></td>
-<td>26</td>
-<td>keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@2571066a</td></tr>
-<tr>
-<td title='keyword.framework.KeywordDrivenFramework.KeywordDrivenTest.runPurchaseTest()'><b>runPurchaseTest</b><br>Test class: keyword.framework.KeywordDrivenFramework.KeywordDrivenTest<br>Parameters: {Product 1=boAt Nirvana Ion, TestCaseID=PC_04, Product 2=boAt Airdopes Prime 701 ANC, Product=boAt 2025 Launch Airdopes 219, Product 3=boAt 2025 Launch Airdopes 219}</td>
-<td></td>
-<td>31</td>
-<td>keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@30331109</td></tr>
-<tr>
-<td title='keyword.framework.KeywordDrivenFramework.KeywordDrivenTest.runPurchaseTest()'><b>runPurchaseTest</b><br>Test class: keyword.framework.KeywordDrivenFramework.KeywordDrivenTest<br>Parameters: {Product 1=Apple iPhone 14, TestCaseID=PC_01, Product 2=Apple iPhone 15, Product=Apple iPhone 15, Product 3=Apple iPhone 13}</td>
-<td></td>
-<td>13</td>
-<td>keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@2571066a</td></tr>
-<tr>
-<td title='keyword.framework.KeywordDrivenFramework.KeywordDrivenTest.runPurchaseTest()'><b>runPurchaseTest</b><br>Test class: keyword.framework.KeywordDrivenFramework.KeywordDrivenTest<br>Parameters: {Product 1=OnePlus Nord 5, TestCaseID=PC_03, Product 2=OnePlus Nord CE5, Product=OnePlus Nord CE5, Product 3=OnePlus 13}</td>
-<td></td>
-<td>30</td>
-<td>keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@30331109</td></tr>
-<tr>
-<td title='keyword.framework.KeywordDrivenFramework.KeywordDrivenTest.runRemoveTest()'><b>runRemoveTest</b><br>Test class: keyword.framework.KeywordDrivenFramework.KeywordDrivenTest<br>Parameters: {TestCaseID=RemoveProduct, Product=OnePlus Nord}</td>
-<td></td>
-<td>20</td>
-<td>keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@2571066a</td></tr>
-<tr>
-<td title='keyword.framework.KeywordDrivenFramework.KeywordDrivenTest.runSignoutTest()'><b>runSignoutTest</b><br>Test class: keyword.framework.KeywordDrivenFramework.KeywordDrivenTest</td>
-<td></td>
-<td>2</td>
-<td>keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@2571066a</td></tr>
-<tr>
-<td title='keyword.framework.KeywordDrivenFramework.KeywordDrivenTest.runPurchaseTest()'><b>runPurchaseTest</b><br>Test class: keyword.framework.KeywordDrivenFramework.KeywordDrivenTest<br>Parameters: {Product 1=OnePlus Nord 5, TestCaseID=PC_03, Product 2=OnePlus Nord CE5, Product=OnePlus 13, Product 3=OnePlus 13}</td>
-<td></td>
-<td>22</td>
-<td>keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@2571066a</td></tr>
-<tr>
-<td title='keyword.framework.KeywordDrivenFramework.KeywordDrivenTest.runPurchaseTest()'><b>runPurchaseTest</b><br>Test class: keyword.framework.KeywordDrivenFramework.KeywordDrivenTest<br>Parameters: {Product 1=iQOO Neo 10R, TestCaseID=PC_05, Product 2=iQOO 9, Product=iQOO 9, Product 3=iQOO Z10}</td>
-<td></td>
-<td>13</td>
-<td>keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@2571066a</td></tr>
-<tr>
-<td title='keyword.framework.KeywordDrivenFramework.KeywordDrivenTest.runRemoveTest()'><b>runRemoveTest</b><br>Test class: keyword.framework.KeywordDrivenFramework.KeywordDrivenTest<br>Parameters: {TestCaseID=RemoveProduct, Product=SAMSUNG Galaxy S25}</td>
-<td></td>
-<td>20</td>
-<td>keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@2571066a</td></tr>
-<tr>
-<td title='keyword.framework.KeywordDrivenFramework.KeywordDrivenTest.runPurchaseTest()'><b>runPurchaseTest</b><br>Test class: keyword.framework.KeywordDrivenFramework.KeywordDrivenTest<br>Parameters: {Product 1=OnePlus Nord 5, TestCaseID=PC_03, Product 2=OnePlus Nord CE5, Product=OnePlus Nord 5, Product 3=OnePlus 13}</td>
-<td></td>
-<td>18</td>
-<td>keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@30331109</td></tr>
-<tr>
-<td title='keyword.framework.KeywordDrivenFramework.KeywordDrivenTest.runRemoveTest()'><b>runRemoveTest</b><br>Test class: keyword.framework.KeywordDrivenFramework.KeywordDrivenTest<br>Parameters: {TestCaseID=RemoveProduct, Product=Redmi 15}</td>
-<td></td>
-<td>6</td>
-<td>keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@30331109</td></tr>
-<tr>
-<td title='keyword.framework.KeywordDrivenFramework.KeywordDrivenTest.runPurchaseTest()'><b>runPurchaseTest</b><br>Test class: keyword.framework.KeywordDrivenFramework.KeywordDrivenTest<br>Parameters: {Product 1=iQOO Neo 10R, TestCaseID=PC_05, Product 2=iQOO 9, Product=iQOO Neo 10R, Product 3=iQOO Z10}</td>
-<td></td>
-<td>28</td>
-<td>keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@30331109</td></tr>
-<tr>
-<td title='keyword.framework.KeywordDrivenFramework.KeywordDrivenTest.runRemoveTest()'><b>runRemoveTest</b><br>Test class: keyword.framework.KeywordDrivenFramework.KeywordDrivenTest<br>Parameters: {TestCaseID=RemoveProduct, Product=POCO M6}</td>
-<td></td>
-<td>20</td>
-<td>keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@2571066a</td></tr>
-<tr>
-<td title='keyword.framework.KeywordDrivenFramework.KeywordDrivenTest.runPurchaseTest()'><b>runPurchaseTest</b><br>Test class: keyword.framework.KeywordDrivenFramework.KeywordDrivenTest<br>Parameters: {Product 1=boAt Nirvana Ion, TestCaseID=PC_04, Product 2=boAt Airdopes Prime 701 ANC, Product=boAt Airdopes Prime 701 ANC, Product 3=boAt 2025 Launch Airdopes 219}</td>
-<td></td>
-<td>36</td>
-<td>keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@30331109</td></tr>
+<td title='keyword.framework.KeywordDrivenFramework.KeywordDrivenTest.runPurchaseFlow()'><b>runPurchaseFlow</b><br>Test class: keyword.framework.KeywordDrivenFramework.KeywordDrivenTest<br>Parameters: {TestCaseID=PC_04, Products=[boAt Nirvana Ion, boAt Airdopes Prime 701 ANC, boAt 2025 Launch Airdopes 219]}</td>
+<td><div><pre>org.testng.TestNGException: 
+Parameter &apos;userName&apos; is required by BeforeClass on method setUp but has not been marked @Optional or defined
+in C:\Users\flintsoftuser\KeywordDrivenFramework\testng.xml
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1095)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:619)
+	at java.base/java.lang.Thread.run(Thread.java:1447)
+... Removed 8 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace1257328766", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1257328766'><pre>org.testng.TestNGException: 
+Parameter &apos;userName&apos; is required by BeforeClass on method setUp but has not been marked @Optional or defined
+in C:\Users\flintsoftuser\KeywordDrivenFramework\testng.xml
+	at org.testng.internal.Parameters.createParams(Parameters.java:264)
+	at org.testng.internal.Parameters.createParametersForMethod(Parameters.java:352)
+	at org.testng.internal.Parameters.createParameters(Parameters.java:690)
+	at org.testng.internal.Parameters.createConfigurationParameters(Parameters.java:163)
+	at org.testng.internal.invokers.ConfigInvoker.invokeConfigurations(ConfigInvoker.java:313)
+	at org.testng.internal.invokers.TestMethodWorker.invokeBeforeClassMethods(TestMethodWorker.java:188)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+	at org.testng.internal.thread.graph.TestNGFutureTask.run(TestNGFutureTask.java:22)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1095)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:619)
+	at java.base/java.lang.Thread.run(Thread.java:1447)
+</pre></div></td>
+<td>0</td>
+<td>keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@1b7c473a</td></tr>
 </table><p>
 </body>
 </html>

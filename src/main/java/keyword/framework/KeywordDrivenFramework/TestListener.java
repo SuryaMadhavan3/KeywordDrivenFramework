@@ -25,7 +25,7 @@ public class TestListener extends BaseTest implements ITestListener {
         test.get().log(Status.FAIL, result.getThrowable());
 
         // Capture screenshot with current WebDriver from BaseTest
-        String screenshotPath = Utils.captureScreenshot(getDriver(), result.getMethod().getMethodName());
+        String screenshotPath = ScreenShotUtils.captureScreenshot(getDriver(), result.getMethod().getMethodName());
         if (screenshotPath != null) {
             try {
                 test.get().addScreenCaptureFromPath(screenshotPath);

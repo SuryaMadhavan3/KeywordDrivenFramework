@@ -6,107 +6,98 @@ import org.testng.annotations.DataProvider;
 
 public class DataProviderUtil {
 
-    private static final ExcelDataReader reader;
+	private static final ExcelDataReader reader;
 
-    static {
-        ExcelDataReader temp = null;
-        try {
-            temp = new ExcelDataReader();
-            System.out.println("✅ ExcelDataReader initialized successfully");
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.err.println("❌ Failed to initialize ExcelDataReader: " + e.getMessage());
-        }
-        reader = temp;
-    }
+	static {
+		ExcelDataReader temp = null;
+		try {
+			temp = new ExcelDataReader();
+			System.out.println("✅ ExcelDataReader initialized successfully");
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.err.println("❌ Failed to initialize ExcelDataReader: " + e.getMessage());
+		}
+		reader = temp;
+	}
 
-    private static Iterator<Object[]> getData(String sheetName) throws IOException {
-        if (reader == null) {
-            System.err.println("⚠️ ExcelDataReader not initialized; skipping sheet: " + sheetName);
-            return Collections.emptyIterator();
-        }
+	private static Iterator<Object[]> getData(String sheetName) throws IOException {
+		if (reader == null) {
+			System.err.println("⚠️ ExcelDataReader not initialized; skipping sheet: " + sheetName);
+			return Collections.emptyIterator();
+		}
 
-        try {
-            List<Map<String, String>> testDataList = reader.getTestDataRows(sheetName);
-            List<Object[]> data = new ArrayList<>();
-            for (Map<String, String> row : testDataList) {
-                data.add(new Object[]{row});
-            }
-            System.out.println("✅ Loaded " + data.size() + " rows from sheet: " + sheetName);
-            return data.iterator();
-        } catch (Exception e) {
-            System.err.println("⚠️ Sheet not found or failed to load: " + sheetName + " → " + e.getMessage());
-            return Collections.emptyIterator();
-        }
-    }
-    
- // inside DataProviderUtil class (add these methods)
+		try {
+			List<Map<String, String>> testDataList = reader.getTestDataRows(sheetName);
+			List<Object[]> data = new ArrayList<>();
+			for (Map<String, String> row : testDataList) {
+				data.add(new Object[] { row });
+			}
+			System.out.println("✅ Loaded " + data.size() + " rows from sheet: " + sheetName);
+			return data.iterator();
+		} catch (Exception e) {
+			System.err.println("⚠️ Sheet not found or failed to load: " + sheetName + " → " + e.getMessage());
+			return Collections.emptyIterator();
+		}
+	}
 
-    private static Iterator<Object[]> getDataWide(String sheetName, String productPrefix) throws IOException {
-        if (reader == null) {
-            System.err.println("⚠️ ExcelDataReader not initialized; skipping sheet: " + sheetName);
-            return Collections.emptyIterator();
-        }
+	// PURCHASE GROUPED LOADER → LOAD ONCE INTO SHARED QUEUE
+	@DataProvider(name = "PurchaseGroupData", parallel = true)
+	public static Object[][] groupedPurchaseData() throws IOException {
 
-        List<Object[]> data = new ArrayList<>();
-        List<Map<String, String>> rows = reader.getTestDataRows(sheetName);
+		if (reader == null) {
+			return new Object[][] { { "USE_QUEUE" } };
+		}
 
-        for (Map<String, String> row : rows) {
-            // find all keys that start with the productPrefix (case-insensitive)
-            for (String key : new ArrayList<>(row.keySet())) {
-                if (key != null && key.toLowerCase().startsWith(productPrefix.toLowerCase())) {
-                    String productValue = row.get(key);
-                    if (productValue != null && !productValue.trim().isEmpty()) {
-                        // create a new map for this product preserving other metadata (like Test Case id)
-                        Map<String, String> single = new HashMap<>(row);
-                        single.put("Product", productValue.trim()); // canonical key your steps expect
-                        data.add(new Object[]{single});
-                    }
-                }
-            }
-        }
-        System.out.println("✅ Expanded wide rows to " + data.size() + " single-product rows for sheet: " + sheetName);
-        return data.iterator();
-    }
-    
-    @DataProvider(name = "PurchaseGroupData", parallel = true)
-    public static Iterator<Object[]> groupedPurchaseData() throws IOException {
-        Map<String, List<String>> grouped = reader.getGroupedTestData("Purchase");
-        List<Object[]> data = new ArrayList<>();
+		Map<String, List<String>> grouped = reader.getGroupedTestData("Purchase");
 
-        for (Map.Entry<String, List<String>> entry : grouped.entrySet()) {
-            Map<String, Object> testCase = new HashMap<>();
-            testCase.put("TestCaseID", entry.getKey());
-            testCase.put("Products", entry.getValue());
-            data.add(new Object[]{testCase});
-        }
-        return data.iterator();
-    }
+		List<Map<String, Object>> data = new ArrayList<>();
 
+		for (Map.Entry<String, List<String>> e : grouped.entrySet()) {
+			Map<String, Object> tc = new HashMap<>();
+			tc.put("TestCaseID", e.getKey());
+			tc.put("Products", e.getValue());
+			data.add(tc);
+		}
+		// Load into shared queue ONCE
+		TestCaseQueue.loadPurchaseCases(data);
+		System.out.println("✅ PurchaseGroupData provided: " + data.size() + " testcases");
+		return new Object[][] { { "USE_QUEUE" } };
+	}
 
+	// REMOVE PRODUCT GROUPED LOADER → LOAD ONCE INTO SHARED QUEUE
+	/*@DataProvider(name = "RemoveGroupData", parallel = true)
+	public static Object[][] removeGroupData() throws IOException {
+
+		if (reader == null) {
+			return new Object[][] { { "USE_QUEUE" } };
+		}
+
+		Map<String, List<String>> grouped = reader.getGroupedTestData("RemoveProduct");
+
+		List<Map<String, Object>> finalList = new ArrayList<>();
+
+		for (Map.Entry<String, List<String>> e : grouped.entrySet()) {
+			Map<String, Object> tc = new HashMap<>();
+			tc.put("TestCaseID", e.getKey());
+			tc.put("Products", e.getValue());
+			finalList.add(tc);
+		}
+
+		// Load into shared queue ONCE
+		TestCaseQueue.loadRemoveCases(finalList);
+
+		// Dummy → test runs once per user
+		return new Object[][] { { "USE_QUEUE" } };
+	}*/
+
+	// Login provider unchanged
     @DataProvider(name = "LoginData")
     public static Iterator<Object[]> loginData() throws IOException {
-        return getData("Login");
+        List<Map<String, String>> list = reader.getTestDataRows("Login");
+        List<Object[]> out = new ArrayList<>();
+        for (Map<String, String> m : list) {
+            out.add(new Object[] { m });
+        }
+        return out.iterator();
     }
-
-    @DataProvider(name = "PurchaseData")
-    public static Iterator<Object[]> purchaseData() throws IOException {
-        return getDataWide("Purchase", "Product");
-    }
-
-    @DataProvider(name = "RemoveData")
-    public static Iterator<Object[]> removedata() throws IOException {
-        return getData("RemoveProduct");
-    }
-
-    // Disabled until sheets exist
-    // @DataProvider(name = "InvalidLoginData")
-    // public static Iterator<Object[]> invalidlogindata() throws IOException {
-    //     return getData("InvalidLogin");
-    // }
-
-    // @DataProvider(name = "InvalidMailData")
-    // public static Iterator<Object[]> invalidmaildata() throws IOException {
-    //     return getData("InvalidMailLogin");
-    // }
 }
