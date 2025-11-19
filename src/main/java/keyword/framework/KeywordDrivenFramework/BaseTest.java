@@ -33,34 +33,6 @@ public class BaseTest {
 		return threadWait.get();
 	}
 
-	public void initializeDriver() throws IOException {
-		configData = new BrowserReader();
-		Map<String, String> config = configData.getConfiguration(FrameworkPaths.CONFIG_PATH, "Configuration");
-
-		String browserName = config.get("Browser");
-		baseUrl = config.get("URL");
-
-		WebDriver driver;
-
-		if (browserName == null || browserName.isEmpty()) {
-			throw new RuntimeException("Browser name missing in ConfigData.xlsx!");
-		}
-		if (browserName.equalsIgnoreCase("chrome")) {
-			ChromeOptions options = new ChromeOptions();
-			String tempProfile = System.getProperty("user.dir") + "\\tempProfile_" + Thread.currentThread().getName();
-			options.addArguments("user-data-dir=" + tempProfile);
-			options.addArguments("--start-maximized");
-			driver = new ChromeDriver(options);
-		} else if (browserName.equalsIgnoreCase("edge")) {
-			driver = new EdgeDriver();
-		} else
-			throw new RuntimeException("Unsupported browser: " + browserName);
-
-		threadDriver.set(driver);
-		threadWait.set(new WebDriverWait(driver, Duration.ofSeconds(15)));
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-	}
-
 	public void initializeDriver(String userName) throws IOException {
 		configData = new BrowserReader();
 		Map<String, String> config = configData.getConfiguration(FrameworkPaths.CONFIG_PATH, "Configuration");
@@ -100,6 +72,7 @@ public class BaseTest {
 			throw new RuntimeException("Base URL missing in ConfigData.xlsx!");
 		}
 		getDriver().get(baseUrl);
+		System.out.println("Navigated to:" + baseUrl);
 	}
 	
 	public void reopenBrowser(String userName) throws IOException {

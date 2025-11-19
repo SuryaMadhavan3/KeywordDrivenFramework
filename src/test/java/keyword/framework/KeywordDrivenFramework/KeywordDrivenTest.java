@@ -21,7 +21,7 @@ public class KeywordDrivenTest extends BaseTest {
 
 		excel = new ExcelDataReader();
 		List<Map<String, String>> rows = excel.getTestDataRows("Login");
-
+		
 		for (Map<String, String> row : rows) {
 			if (row.get("UsersName").equalsIgnoreCase(userName)) {
 				loginData = row;
@@ -67,22 +67,6 @@ public class KeywordDrivenTest extends BaseTest {
             executeTestCase("Purchase", testCase);
         }
     }
-
-	 // REMOVEPRODUCT EXECUTION USING SHARED QUEUE
-    /*@Test(priority = 3, dataProvider = "RemoveGroupData", dataProviderClass = DataProviderUtil.class)
-    public void runRemoveCases(String dummy) throws Exception {
-
-        while (true) {
-
-            Map<String, Object> testCase = TestCaseQueue.getNextRemoveCase();
-            if (testCase == null) {
-                System.out.println("🛑 [" + userName + "] No more RemoveProduct test cases.");
-                break;
-            }
-
-            executeTestCase("RemoveProduct", testCase);
-        }
-    }*/
 
     // COMMON EXECUTION METHOD FOR ANY MODULE
     private void executeTestCase(String module, Map<String, Object> testCase) throws Exception {

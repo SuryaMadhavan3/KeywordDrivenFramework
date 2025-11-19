@@ -20,26 +20,6 @@ public class DataProviderUtil {
 		reader = temp;
 	}
 
-	private static Iterator<Object[]> getData(String sheetName) throws IOException {
-		if (reader == null) {
-			System.err.println("⚠️ ExcelDataReader not initialized; skipping sheet: " + sheetName);
-			return Collections.emptyIterator();
-		}
-
-		try {
-			List<Map<String, String>> testDataList = reader.getTestDataRows(sheetName);
-			List<Object[]> data = new ArrayList<>();
-			for (Map<String, String> row : testDataList) {
-				data.add(new Object[] { row });
-			}
-			System.out.println("✅ Loaded " + data.size() + " rows from sheet: " + sheetName);
-			return data.iterator();
-		} catch (Exception e) {
-			System.err.println("⚠️ Sheet not found or failed to load: " + sheetName + " → " + e.getMessage());
-			return Collections.emptyIterator();
-		}
-	}
-
 	// PURCHASE GROUPED LOADER → LOAD ONCE INTO SHARED QUEUE
 	@DataProvider(name = "PurchaseGroupData", parallel = true)
 	public static Object[][] groupedPurchaseData() throws IOException {
@@ -48,56 +28,68 @@ public class DataProviderUtil {
 			return new Object[][] { { "USE_QUEUE" } };
 		}
 
-		Map<String, List<String>> grouped = reader.getGroupedTestData("Purchase");
+		List<Map<String, String>> rows = reader.getTestDataRows("Purchase");
+		List<Map<String, Object>> grouped = new ArrayList<>();
 
-		List<Map<String, Object>> data = new ArrayList<>();
+		for (Map<String, String> row : rows) {
 
-		for (Map.Entry<String, List<String>> e : grouped.entrySet()) {
-			Map<String, Object> tc = new HashMap<>();
-			tc.put("TestCaseID", e.getKey());
-			tc.put("Products", e.getValue());
-			data.add(tc);
+			String tcId = row.get("TestCaseID");
+			if (tcId == null)
+				continue;
+
+			List<String> products = new ArrayList<>();
+			List<Double> expectedPrices = new ArrayList<>();
+
+			// Dynamically detect Product N / Price N
+			for (String key : row.keySet()) {
+				if (key.toLowerCase().startsWith("product")) {
+
+					String product = row.get(key);
+					if (product == null || product.isBlank())
+						continue;
+
+					String idx = key.replaceAll("[^0-9]", "");
+					String priceKey = "Price " + idx;
+
+					double expPrice = 0.0;
+					try {
+						expPrice = Double.parseDouble(row.get(priceKey));
+					} catch (Exception ignored) {
+					}
+
+					products.add(product);
+					expectedPrices.add(expPrice);
+				}
+			}
+			double expectedTotal = 0.0;
+			try {
+				expectedTotal = Double.parseDouble(row.get("Expected total amount"));
+			} catch (Exception ignored) {
+			}
+
+			Map<String, Object> map = new HashMap<>();
+			map.put("TestCaseID", tcId);
+			map.put("Products", products);
+			map.put("ExpectedPrices", expectedPrices);
+			map.put("ExpectedTotal", expectedTotal);
+
+			grouped.add(map);
 		}
+		
 		// Load into shared queue ONCE
-		TestCaseQueue.loadPurchaseCases(data);
-		System.out.println("✅ PurchaseGroupData provided: " + data.size() + " testcases");
+		TestCaseQueue.loadPurchaseCases(grouped);
+		System.out.println("✅ PurchaseGroupData provided: " + grouped.size() + " testcases");
 		return new Object[][] { { "USE_QUEUE" } };
 	}
 
-	// REMOVE PRODUCT GROUPED LOADER → LOAD ONCE INTO SHARED QUEUE
-	/*@DataProvider(name = "RemoveGroupData", parallel = true)
-	public static Object[][] removeGroupData() throws IOException {
-
-		if (reader == null) {
-			return new Object[][] { { "USE_QUEUE" } };
-		}
-
-		Map<String, List<String>> grouped = reader.getGroupedTestData("RemoveProduct");
-
-		List<Map<String, Object>> finalList = new ArrayList<>();
-
-		for (Map.Entry<String, List<String>> e : grouped.entrySet()) {
-			Map<String, Object> tc = new HashMap<>();
-			tc.put("TestCaseID", e.getKey());
-			tc.put("Products", e.getValue());
-			finalList.add(tc);
-		}
-
-		// Load into shared queue ONCE
-		TestCaseQueue.loadRemoveCases(finalList);
-
-		// Dummy → test runs once per user
-		return new Object[][] { { "USE_QUEUE" } };
-	}*/
-
 	// Login provider unchanged
-    @DataProvider(name = "LoginData")
-    public static Iterator<Object[]> loginData() throws IOException {
-        List<Map<String, String>> list = reader.getTestDataRows("Login");
-        List<Object[]> out = new ArrayList<>();
-        for (Map<String, String> m : list) {
-            out.add(new Object[] { m });
-        }
-        return out.iterator();
-    }
+	@DataProvider(name = "LoginData")
+	public static Iterator<Object[]> loginData() throws IOException {
+		List<Map<String, String>> list = reader.getTestDataRows("Login");
+		List<Object[]> out = new ArrayList<>();
+		for (Map<String, String> m : list) {
+			out.add(new Object[] { m });
+		}
+		return out.iterator();
+	}
 }

@@ -22,6 +22,7 @@ public class BaseActions {
 	private WebDriver driver;
 	private WebDriverWait wait;
 	private Actions actions;
+ 
 
 	public BaseActions(WebDriver driver) {
 		this.driver = driver;
@@ -300,4 +301,39 @@ public class BaseActions {
 		driver.navigate().to(url);
 		System.out.println("[ACTION] Navigated to: " + url);
 	}
+	
+	public double getprice(String locatorType, String locatorValue) {
+		try {
+	        WebElement priceEl = new WebDriverWait(driver, Duration.ofSeconds(10))
+	                .until(ExpectedConditions.visibilityOfElementLocated(getBy(locatorType, locatorValue)));
+	        
+	        String priceText = priceEl.getText();
+	        double result = parsePriceString(priceText);
+
+	        System.out.println("💰 Extracted Price: " + result);
+	        return result;
+	    } 
+	    catch (Exception e) {
+	        System.out.println("❌ Failed to extract price: " + e.getMessage());
+	        return 0;
+	    }
+	}
+	
+	public double parsePriceString(String priceText) {
+	    if (priceText == null) return 0;
+
+	    // Keep only digits, commas, periods
+	    priceText = priceText.replaceAll("[^0-9.,]", "");
+
+	    // Remove commas
+	    priceText = priceText.replace(",", "");
+
+	    try {
+	        return Double.parseDouble(priceText);
+	    } catch (Exception e) {
+	        System.out.println("❌ Price parse failed: " + priceText);
+	        return 0;
+	    }
+	}
+
 }
