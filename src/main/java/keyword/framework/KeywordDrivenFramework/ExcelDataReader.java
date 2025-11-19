@@ -102,7 +102,7 @@ public class ExcelDataReader {
             if (testCaseId == null || testCaseId.trim().isEmpty()) continue;
 
             List<String> products = new ArrayList<>();
-            List<Double> prices = new ArrayList<>(); // Step 4
+            List<Double> prices = new ArrayList<>(); // Step 4 Need to continue
 
             for (Map.Entry<String, String> entry : row.entrySet()) {
                 String key = entry.getKey();
