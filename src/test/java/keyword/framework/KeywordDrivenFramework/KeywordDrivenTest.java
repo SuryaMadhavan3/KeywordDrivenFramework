@@ -13,7 +13,7 @@ public class KeywordDrivenTest extends BaseTest {
 	private Map<String, String> loginData;
 
 	// ASSIGN USER (FROM XML)
-	@BeforeClass
+	@BeforeClass	
 	@Parameters("UserName")
 	public void setUser(String user) throws IOException {
 		this.userName = user;
@@ -74,7 +74,8 @@ public class KeywordDrivenTest extends BaseTest {
         String tcId = (String) testCase.get("TestCaseID");
         @SuppressWarnings("unchecked")
         List<String> products = (List<String>) testCase.get("Products");
-
+        
+        
         System.out.println("\n🚀 [" + userName + "] Running " + module + " TestCase: " + tcId);
 
         // Open browser with saved login

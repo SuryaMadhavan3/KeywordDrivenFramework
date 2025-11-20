@@ -15,7 +15,4 @@ public class FrameworkPaths {
 
     public static final String REPORTS_PATH =
             System.getProperty("user.dir") + "/reports/";
-
-    public static final String DRIVERS_PATH =
-            System.getProperty("user.dir") + "/drivers/";
 }

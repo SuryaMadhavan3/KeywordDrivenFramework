@@ -82,12 +82,6 @@ public class BaseTest {
 		openBaseUrl();
 	}
 	
-	/*@BeforeSuite
-	public void preWarmDrivers() {
-	    new Thread(() -> new ChromeDriver().quit()).start();
-	}*/
-
-	
 	@AfterSuite(alwaysRun = true)
 	public void cleanupProfiles1() {
 		try {

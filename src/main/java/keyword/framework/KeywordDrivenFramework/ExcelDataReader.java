@@ -92,8 +92,8 @@ public class ExcelDataReader {
 		return allSheetData;
 	}
 	
-    // ✅ New method: group each test case by its products
-    public Map<String, List<String>> getGroupedTestData(String sheetName) throws IOException {
+    
+    /*public Map<String, List<String>> getGroupedTestData(String sheetName) throws IOException {
         List<Map<String, String>> rows = readSheet(FrameworkPaths.TESTDATA_PATH, sheetName);
         Map<String, List<String>> groupedData = new LinkedHashMap<>();
 
@@ -117,7 +117,50 @@ public class ExcelDataReader {
         }
         System.out.println("✅ Grouped " + groupedData.size() + " testcases from sheet: " + sheetName);
         return groupedData;
+    }*/
+    
+    public Map<String, Map<String, Object>> getGroupedPurchaseData(String sheetName) throws IOException {
+
+        List<Map<String, String>> rows = readSheet(FrameworkPaths.TESTDATA_PATH, sheetName);
+
+        Map<String, Map<String, Object>> grouped = new LinkedHashMap<>();
+
+        for (Map<String, String> row : rows) {
+
+            String tcId = row.get("TestCaseID");
+            if (tcId == null || tcId.trim().isEmpty()) continue;
+
+            List<String> products = new ArrayList<>();
+            List<Double> prices = new ArrayList<>();
+
+            for (Map.Entry<String, String> entry : row.entrySet()) {
+
+                String header = entry.getKey().toLowerCase().trim();
+                String value = entry.getValue().trim();
+
+                if (header.startsWith("product") && !value.isEmpty()) {
+                    products.add(value);
+                }
+
+                if (header.startsWith("price") && !value.isEmpty()) {
+                    prices.add(Double.parseDouble(value));
+                }
+            }
+
+            double expectedTotal = Double.parseDouble(row.get("Expected total amount"));
+
+            Map<String, Object> map = new HashMap<>();
+            map.put("TestCaseID", tcId);
+            map.put("Products", products);
+            map.put("Prices", prices);
+            map.put("ExpectedTotal", expectedTotal);
+
+            grouped.put(tcId, map);
+        }
+
+        return grouped;
     }
+
 
 	public List<Map<String, String>> getKeywordSteps(String moduleName) throws IOException {
 		return readSheet(FrameworkPaths.KEYWORD_PATH, moduleName);
