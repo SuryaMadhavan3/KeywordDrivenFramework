@@ -45,11 +45,10 @@ public class DataProviderUtil {
 				if (key.toLowerCase().startsWith("product")) {
 
 					String product = row.get(key);
-					if (product == null || product.isBlank())
-						continue;
+					if (product == null || product.isBlank()) continue;
 
-					String idx = key.replaceAll("[^0-9]", "");
-					String priceKey = "Price " + idx;
+					String index = key.replaceAll("[^0-9]", "");
+					String priceKey = "Price " + index;
 
 					double expPrice = 0.0;
 					try {
