@@ -31,7 +31,10 @@ public class demo {
 		Actions actions = new Actions(driver);
 
 		driver.get("https://www.amazon.in/");
-
+		
+		String title = driver.getTitle();
+		System.out.println(title);
+		
 		WebElement element = wait
 				.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div[id='nav-link-accountList']")));
 		actions.moveToElement(element).perform();

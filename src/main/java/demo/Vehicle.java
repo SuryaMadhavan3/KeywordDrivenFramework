@@ -6,6 +6,7 @@ public class Vehicle {
 		
 		TrafficRules t1 = new Car();
 		TrafficRules t2 = new Bike();
+		//Book b= new Book();
 		
 		t1.Green();
 		t1.Red();

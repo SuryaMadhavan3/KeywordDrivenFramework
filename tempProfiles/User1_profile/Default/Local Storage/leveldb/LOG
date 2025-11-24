@@ -1,0 +1,11 @@
+2025/11/24-17:07:56.174 3a20 Reusing MANIFEST C:\Users\flintsoftuser\KeywordDrivenFramework\tempProfiles\User1_profile\Default\Local Storage\leveldb/MANIFEST-000001
+2025/11/24-17:07:56.179 3a20 Recovering log #18
+2025/11/24-17:07:56.179 3a20 Level-0 table #21: started
+2025/11/24-17:07:56.213 3a20 Level-0 table #21: 36422 bytes OK
+2025/11/24-17:07:56.214 3a20 Recovering log #20
+2025/11/24-17:07:56.214 3a20 Level-0 table #22: started
+2025/11/24-17:07:56.240 3a20 Level-0 table #22: 67792 bytes OK
+2025/11/24-17:07:56.248 3a20 Delete type=0 #18
+2025/11/24-17:07:56.248 3a20 Delete type=0 #20
+2025/11/24-17:08:07.798 3a20 Level-0 table #25: started
+2025/11/24-17:08:07.816 3a20 Level-0 table #25: 34620 bytes OK

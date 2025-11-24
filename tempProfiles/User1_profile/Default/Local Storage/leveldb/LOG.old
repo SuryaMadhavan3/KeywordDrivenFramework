@@ -1,0 +1,20 @@
+2025/11/24-17:07:41.915 43e4 Reusing MANIFEST C:\Users\flintsoftuser\KeywordDrivenFramework\tempProfiles\User1_profile\Default\Local Storage\leveldb/MANIFEST-000001
+2025/11/24-17:07:41.922 43e4 Recovering log #14
+2025/11/24-17:07:41.923 43e4 Level-0 table #16: started
+2025/11/24-17:07:41.943 43e4 Level-0 table #16: 103301 bytes OK
+2025/11/24-17:07:41.944 43e4 Recovering log #15
+2025/11/24-17:07:41.945 43e4 Level-0 table #17: started
+2025/11/24-17:07:41.953 43e4 Level-0 table #17: 75162 bytes OK
+2025/11/24-17:07:41.964 43e4 Delete type=0 #14
+2025/11/24-17:07:41.964 43e4 Delete type=0 #15
+2025/11/24-17:07:41.965 4c70 Compacting 4@0 + 1@1 files
+2025/11/24-17:07:41.985 4c70 Generated table #19@0: 27 keys, 75891 bytes
+2025/11/24-17:07:41.985 4c70 Compacted 4@0 + 1@1 files => 75891 bytes
+2025/11/24-17:07:41.993 4c70 compacted to: files[ 0 1 0 0 0 0 0 ]
+2025/11/24-17:07:41.994 4c70 Delete type=2 #10
+2025/11/24-17:07:41.994 4c70 Delete type=2 #12
+2025/11/24-17:07:41.994 4c70 Delete type=2 #13
+2025/11/24-17:07:41.994 4c70 Delete type=2 #16
+2025/11/24-17:07:41.994 4c70 Delete type=2 #17
+2025/11/24-17:07:54.810 4c70 Level-0 table #21: started
+2025/11/24-17:07:54.913 4c70 Level-0 table #21: 36422 bytes OK

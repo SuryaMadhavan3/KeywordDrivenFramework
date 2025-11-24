@@ -1,6 +1,11 @@
 package demo;
 
-public class Page {
+class Page {
 	
-	Page p = new Page();
+	Page(){
+		super();
+		System.out.println("A");
+	}
+	
 }
+

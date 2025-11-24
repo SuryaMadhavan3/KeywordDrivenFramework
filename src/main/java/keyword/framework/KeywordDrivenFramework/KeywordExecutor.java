@@ -8,13 +8,13 @@ public class KeywordExecutor extends BaseActions {
 
 	private boolean skipNextStep = false;
 	private double lastExtractedPrice = 0.0;
-	
+
 	public KeywordExecutor(WebDriver driver) {
 		super(driver);
 	}
-	
+
 	public double getLastExtractedPrice() {
-	    return lastExtractedPrice;
+		return lastExtractedPrice;
 	}
 
 	public void executeKeyword(String action, String locatorType, String locatorValue, String data) {
@@ -52,7 +52,11 @@ public class KeywordExecutor extends BaseActions {
 				break;
 
 			case "sleep":
-				sleep(Long.parseLong(data));
+				if (data == null || data.isBlank()) {
+					sleep(3000); 
+				} else {
+					sleep(Long.parseLong(data));
+				}
 				break;
 
 			case "switch":
@@ -135,8 +139,8 @@ public class KeywordExecutor extends BaseActions {
 			String actualData = (dataKey != null && !dataKey.isEmpty()) ? testData.getOrDefault(dataKey, dataKey)
 					: null;
 
-			System.out.println("➡️ Executing: " + action + " | Locator: [" + locatorType + "=" + locatorValue
-					+ "] | Data: " + actualData);
+			System.out.println("➡️ Executing: " + action + " || Locator: [" + locatorType + "=" + locatorValue
+					+ "] || Data: " + actualData);
 
 			executeKeyword(action, locatorType, locatorValue, actualData);
 		}

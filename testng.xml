@@ -1,17 +1,9 @@
-<suite name="KeywordDrivenSuite" parallel="tests" thread-count="3">
+<suite name="KeywordDrivenSuite" parallel="tests" thread-count="1">
 
     <test name="User1Runner">
         <classes>
             <class name="keyword.framework.KeywordDrivenFramework.KeywordDrivenTest">
                 <parameter name="UserName" value="User1"/>
-            </class>
-        </classes>
-    </test>
-
-    <test name="User2Runner">
-        <classes>
-            <class name="keyword.framework.KeywordDrivenFramework.KeywordDrivenTest">
-                <parameter name="UserName" value="User2"/>
             </class>
         </classes>
     </test>

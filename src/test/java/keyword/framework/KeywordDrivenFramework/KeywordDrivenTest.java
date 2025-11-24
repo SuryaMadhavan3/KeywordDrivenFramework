@@ -21,8 +21,9 @@ public class KeywordDrivenTest extends BaseTest {
 
 		excel = new ExcelDataReader();
 		List<Map<String, String>> rows = excel.getTestDataRows("Login");
-		
+		System.out.println(rows);
 		for (Map<String, String> row : rows) {
+			System.out.println(row);
 			if (row.get("UsersName").equalsIgnoreCase(userName)) {
 				loginData = row;
 				break;
@@ -48,7 +49,7 @@ public class KeywordDrivenTest extends BaseTest {
 		
 		System.out.println("✔ Login completed for user: " + userName);
 
-		quitDriver(); // keep Chrome profile with session
+		//quitDriver();
 	}
 
 	// PURCHASE EXECUTION USING SHARED QUEUE
@@ -71,10 +72,14 @@ public class KeywordDrivenTest extends BaseTest {
     @SuppressWarnings("unchecked")
 	private void executeTestCase(String module, Map<String, Object> testCase) throws Exception {
 
-//        String tcId = (String) testCase.get("TestCaseID");
+        String tcId = (String) testCase.get("TestCaseID");
         List<String> products = (List<String>) testCase.get("Products");
         List<Double> expectedPrices = (List<Double>) testCase.get("ExpectedPrices");
         double expectedTotal = (double) testCase.get("ExpectedTotal");
+        System.out.println("TestCase : "+tcId);
+        System.out.println("Products : "+products);
+        System.out.println("Products Expected Price : "+expectedPrices);
+        System.out.println("Overall Total : "+expectedTotal);
         
         System.out.println("\n🚀 [" + userName + "] Running " + module + " TestCase: " + tcId);
 
@@ -156,7 +161,6 @@ public class KeywordDrivenTest extends BaseTest {
 
         quitDriver();
     }
-    
     
 	@AfterMethod(alwaysRun = true)
 	public void closeBrowserAfterTC() {

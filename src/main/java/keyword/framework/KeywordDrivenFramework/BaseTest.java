@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.Driver;
 import java.time.Duration;
 import java.util.Comparator;
 import java.util.Map;
@@ -17,8 +18,6 @@ import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 
 public class BaseTest {
-
-	// ✅ Static block to pre-create Chrome profiles before tests start
 
 	private static ThreadLocal<WebDriver> threadDriver = new ThreadLocal<>();
 	private static ThreadLocal<WebDriverWait> threadWait = new ThreadLocal<>();
@@ -39,7 +38,9 @@ public class BaseTest {
 
 		String browserName = config.get("Browser");
 		baseUrl = config.get("URL");
-
+		//System.out.println("Browser Name : "+browserName);
+		//System.out.println("URL : "+baseUrl);
+		
 		WebDriver driver;
 		ChromeOptions options = new ChromeOptions();
 
@@ -72,7 +73,9 @@ public class BaseTest {
 			throw new RuntimeException("Base URL missing in ConfigData.xlsx!");
 		}
 		getDriver().get(baseUrl);
+		String title = getDriver().getTitle();
 		System.out.println("Navigated to:" + baseUrl);
+		System.out.println("URL Title:" + title);
 	}
 	
 	public void reopenBrowser(String userName) throws IOException {
