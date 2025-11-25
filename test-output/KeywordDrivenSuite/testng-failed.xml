@@ -1,36 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite thread-count="2" parallel="tests" name="Failed suite [KeywordDrivenSuite]">
-  <test thread-count="2" parallel="tests" name="User1Runner(failed)">
-    <parameter name="UserName" value="User1"/>
+<suite thread-count="1" parallel="tests" name="Failed suite [KeywordDrivenSuite]">
+  <test thread-count="1" parallel="tests" name="User1Runner(failed)">
     <classes>
       <class name="keyword.framework.KeywordDrivenFramework.KeywordDrivenTest">
+        <parameter name="UserName" value="User1"/>
         <methods>
-          <include name="loginOnce"/>
-          <include name="runTestCase"/>
           <include name="cleanupProfiles1"/>
-          <include name="closeBrowserAfterTC"/>
           <include name="setUser"/>
-          <include name="runRemoveCase"/>
-          <include name="prepareLoginData"/>
+          <include name="closeBrowserAfterTC"/>
+          <include name="runPurchases" invocation-numbers="0"/>
         </methods>
       </class> <!-- keyword.framework.KeywordDrivenFramework.KeywordDrivenTest -->
     </classes>
   </test> <!-- User1Runner(failed) -->
-  <test thread-count="2" parallel="tests" name="User2Runner(failed)">
-    <parameter name="UserName" value="User2"/>
-    <classes>
-      <class name="keyword.framework.KeywordDrivenFramework.KeywordDrivenTest">
-        <methods>
-          <include name="loginOnce"/>
-          <include name="runTestCase"/>
-          <include name="cleanupProfiles1"/>
-          <include name="closeBrowserAfterTC"/>
-          <include name="setUser"/>
-          <include name="runRemoveCase"/>
-          <include name="prepareLoginData"/>
-        </methods>
-      </class> <!-- keyword.framework.KeywordDrivenFramework.KeywordDrivenTest -->
-    </classes>
-  </test> <!-- User2Runner(failed) -->
 </suite> <!-- Failed suite [KeywordDrivenSuite] -->

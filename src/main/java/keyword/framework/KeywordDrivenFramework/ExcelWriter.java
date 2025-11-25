@@ -12,7 +12,12 @@ public class ExcelWriter {
     private static final String EXCEL_PATH = FrameworkPaths.TESTDATA_PATH;
     private static final String SHEET_NAME = "Purchase";
 
-    public static synchronized void updateStatus(String tcId, double actualTotal, String status) {
+    public static synchronized void updateStatus(String tcId, Double actualTotal, String status) {
+
+        if (tcId == null || (actualTotal == null && status == null)) {
+            System.out.println("❌ Nothing to update. Provide at least a value for Status or Actual Total.");
+            return;
+        }
 
         FileInputStream fis = null;
         FileOutputStream fos = null;
@@ -24,7 +29,7 @@ public class ExcelWriter {
 
             if (sheet == null) {
                 workbook.close();
-                throw new RuntimeException("❌ Sheet 'Purchase' not found!");
+                throw new RuntimeException("❌ Sheet '" + SHEET_NAME + "' not found!");
             }
 
             int tcIdCol = -1;
@@ -33,7 +38,7 @@ public class ExcelWriter {
 
             Row header = sheet.getRow(0);
 
-            // 🔍 Find required columns index dynamically
+            // 🔍 Find column indexes dynamically
             for (int i = 0; i < header.getLastCellNum(); i++) {
                 String column = header.getCell(i).getStringCellValue().trim().toLowerCase();
 
@@ -42,15 +47,14 @@ public class ExcelWriter {
                 if (column.equals("status")) statusCol = i;
             }
 
-            if (tcIdCol == -1 || actualCol == -1 || statusCol == -1) {
+            if (tcIdCol == -1) {
                 workbook.close();
-                throw new RuntimeException("❌ Required columns missing in sheet!");
+                throw new RuntimeException("❌ TestCaseID column missing in sheet!");
             }
 
-            // 🔍 Find row by TestCaseID
             boolean found = false;
-            for (int r = 1; r <= sheet.getLastRowNum(); r++) {
 
+            for (int r = 1; r <= sheet.getLastRowNum(); r++) {
                 Row row = sheet.getRow(r);
                 if (row == null) continue;
 
@@ -60,19 +64,21 @@ public class ExcelWriter {
                 String value = tcCell.getStringCellValue().trim();
                 if (value.equalsIgnoreCase(tcId)) {
 
-                    // ✍ Write Actual total amount
-                    Cell actualCell = row.getCell(actualCol);
-                    if (actualCell == null)
-                        actualCell = row.createCell(actualCol);
+                    // ✍ Update Actual Total if provided
+                    if (actualTotal != null && actualCol != -1) {
+                        Cell actualCell = row.getCell(actualCol);
+                        if (actualCell == null)
+                            actualCell = row.createCell(actualCol);
+                        actualCell.setCellValue(actualTotal);
+                    }
 
-                    actualCell.setCellValue(actualTotal);
-
-                    // ✍ Write Status
-                    Cell statusCell = row.getCell(statusCol);
-                    if (statusCell == null)
-                        statusCell = row.createCell(statusCol);
-
-                    statusCell.setCellValue(status);
+                    // ✍ Update Status if provided
+                    if (status != null && statusCol != -1) {
+                        Cell statusCell = row.getCell(statusCol);
+                        if (statusCell == null)
+                            statusCell = row.createCell(statusCol);
+                        statusCell.setCellValue(status);
+                    }
 
                     found = true;
                     break;
@@ -84,13 +90,13 @@ public class ExcelWriter {
             }
 
             fis.close(); // close input stream
-
             fos = new FileOutputStream(EXCEL_PATH);
             workbook.write(fos);
             workbook.close();
 
             System.out.println("📌 Excel Updated → TC: " + tcId +
-                    " | Actual=" + actualTotal + " | Status=" + status);
+                    (actualTotal != null ? " | Actual=" + actualTotal : "") +
+                    (status != null ? " | Status=" + status : ""));
 
         } catch (Exception e) {
             System.out.println("❌ Excel update failed: " + e.getMessage());
@@ -99,5 +105,15 @@ public class ExcelWriter {
             try { if (fis != null) fis.close(); } catch (IOException ignored) {}
             try { if (fos != null) fos.close(); } catch (IOException ignored) {}
         }
+    }
+
+    // ✅ Convenience overload: Update only Status
+    public static synchronized void updateStatus(String tcId, String status) {
+        updateStatus(tcId, null, status);
+    }
+
+    // ✅ Convenience overload: Update only Actual Total
+    public static synchronized void updateStatus(String tcId, Double actualTotal) {
+        updateStatus(tcId, actualTotal, null);
     }
 }

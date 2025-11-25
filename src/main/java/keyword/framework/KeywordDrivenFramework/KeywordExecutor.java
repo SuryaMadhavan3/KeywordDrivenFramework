@@ -102,8 +102,7 @@ public class KeywordExecutor extends BaseActions {
 			case "findelement":
 				System.out.println("[CHECK] Element found: " + findElement(locatorType, locatorValue));
 				break;
-
-			case "noop":
+			//case "noop":
 			case "comment":
 				System.out.println("📝 Comment: " + data);
 				break;

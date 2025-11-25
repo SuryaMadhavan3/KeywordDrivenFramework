@@ -2,17 +2,14 @@ package demo;
 
 public class Vehicle {
 	
+	static void engine() {
+		System.out.println("Engine Starts Succesfully");
+	}
+	
+	static Car c = new Car();
 	public static void main(String[] args) {
-		
-		TrafficRules t1 = new Car();
-		TrafficRules t2 = new Bike();
-		//Book b= new Book();
-		
-		t1.Green();
-		t1.Red();
-		t1.Yellow();
-		t2.Green();
-		t2.Red();
-		t2.Yellow();
+
+		// System.out.println("Static Method is running.");
+		c.maruthi();//Cannot make a static reference to the non-static field c
 	}
 }

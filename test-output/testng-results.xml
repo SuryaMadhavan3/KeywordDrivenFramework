@@ -2,12 +2,12 @@
 <testng-results ignored="0" total="2" passed="2" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2025-11-24T17:06:25 IST" name="KeywordDrivenSuite" finished-at="2025-11-24T17:08:07 IST" duration-ms="102647">
+  <suite started-at="2025-11-25T17:54:11 IST" name="KeywordDrivenSuite" finished-at="2025-11-25T17:58:42 IST" duration-ms="270905">
     <groups>
     </groups>
-    <test started-at="2025-11-24T17:06:25 IST" name="User1Runner" finished-at="2025-11-24T17:08:07 IST" duration-ms="102647">
+    <test started-at="2025-11-25T17:54:11 IST" name="User1Runner" finished-at="2025-11-25T17:58:42 IST" duration-ms="270905">
       <class name="keyword.framework.KeywordDrivenFramework.KeywordDrivenTest">
-        <test-method is-config="true" signature="setUser(java.lang.String)[pri:0, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@2a62b5bc]" started-at="2025-11-24T17:06:25 IST" name="setUser" finished-at="2025-11-24T17:06:25 IST" duration-ms="612" status="PASS">
+        <test-method is-config="true" signature="setUser(java.lang.String)[pri:0, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@2a62b5bc]" started-at="2025-11-25T17:54:11 IST" name="setUser" finished-at="2025-11-25T17:54:11 IST" duration-ms="599" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -18,15 +18,15 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUser -->
-        <test-method signature="loginOnce()[pri:1, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@2a62b5bc]" started-at="2025-11-24T17:06:25 IST" name="loginOnce" finished-at="2025-11-24T17:06:50 IST" duration-ms="24828" status="PASS">
+        <test-method signature="loginOnce()[pri:1, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@2a62b5bc]" started-at="2025-11-25T17:54:11 IST" name="loginOnce" finished-at="2025-11-25T17:54:30 IST" duration-ms="18428" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- loginOnce -->
-        <test-method is-config="true" signature="closeBrowserAfterTC()[pri:0, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@2a62b5bc]" started-at="2025-11-24T17:06:50 IST" name="closeBrowserAfterTC" finished-at="2025-11-24T17:06:52 IST" duration-ms="1636" status="PASS">
+        <test-method is-config="true" signature="closeBrowserAfterTC()[pri:0, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@2a62b5bc]" started-at="2025-11-25T17:54:30 IST" name="closeBrowserAfterTC" finished-at="2025-11-25T17:54:30 IST" duration-ms="251" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- closeBrowserAfterTC -->
-        <test-method signature="runPurchases(java.lang.String)[pri:2, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@2a62b5bc]" started-at="2025-11-24T17:06:52 IST" name="runPurchases" data-provider="PurchaseGroupData" finished-at="2025-11-24T17:08:07 IST" duration-ms="75450" status="PASS">
+        <test-method signature="runPurchases(java.lang.String)[pri:2, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@2a62b5bc]" started-at="2025-11-25T17:54:30 IST" name="runPurchases" data-provider="PurchaseGroupData" finished-at="2025-11-25T17:58:42 IST" duration-ms="251509" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -37,11 +37,11 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- runPurchases -->
-        <test-method is-config="true" signature="closeBrowserAfterTC()[pri:0, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@2a62b5bc]" started-at="2025-11-24T17:08:07 IST" name="closeBrowserAfterTC" finished-at="2025-11-24T17:08:07 IST" duration-ms="1" status="PASS">
+        <test-method is-config="true" signature="closeBrowserAfterTC()[pri:0, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@2a62b5bc]" started-at="2025-11-25T17:58:42 IST" name="closeBrowserAfterTC" finished-at="2025-11-25T17:58:42 IST" duration-ms="1" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- closeBrowserAfterTC -->
-        <test-method is-config="true" signature="cleanupProfiles1()[pri:0, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@2a62b5bc]" started-at="2025-11-24T17:08:08 IST" name="cleanupProfiles1" finished-at="2025-11-24T17:08:08 IST" duration-ms="2" status="PASS">
+        <test-method is-config="true" signature="cleanupProfiles1()[pri:0, instance:keyword.framework.KeywordDrivenFramework.KeywordDrivenTest@2a62b5bc]" started-at="2025-11-25T17:58:42 IST" name="cleanupProfiles1" finished-at="2025-11-25T17:58:42 IST" duration-ms="2" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- cleanupProfiles1 -->
