@@ -151,7 +151,32 @@ public class BaseActions {
 		}
 		System.out.println("[INFO] Product not found: " + text);
 	}
-
+	
+	public void deleteAllInCart(String locatorType, String locatorValue) {
+		try {
+			String[] locators = locatorValue.split("||");
+			String productListLocator = locators[0].trim();
+			String deleteBtnLocator = locators[1].trim();
+			
+			List<WebElement> products = driver.findElements(getBy(locatorType, productListLocator));
+			int total = products.size();
+			
+			for(int i=0; i<total;i++) {
+				String dynamicDeleteXpath = deleteBtnLocator.replace("Index", "1");
+				WebElement deleteButton = wait.until(ExpectedConditions.elementToBeClickable(getBy(locatorType, dynamicDeleteXpath)));
+				deleteButton.click();
+				
+				wait.until(ExpectedConditions.stalenessOf(deleteButton));
+				sleep(3000);
+			}
+				
+			System.out.println("All cart items deleted.");
+			
+		}catch(Exception e) {
+			System.out.println("❌ Failed to delete all items: " + e.getMessage());
+		}
+	}
+	
 	public void acceptAlert() {
 		try {
 			Alert alert = wait.until(ExpectedConditions.alertIsPresent());
@@ -181,17 +206,11 @@ public class BaseActions {
 			// Save the current window and URL before the click
 			//String originalHandle = driver.getWindowHandle();
 			Set<String> oldHandles = driver.getWindowHandles();
-
 			System.out.println("Current window handles before click: " + oldHandles.size());
-
 			Thread.sleep(2000); // Pause to let any new tab open (if needed)
-
 			System.out.println("Window handles after click: " + driver.getWindowHandles().size());
-
 			String startingUrl = driver.getCurrentUrl();
-
 			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutSeconds));
-
 			// Wait for either: a new tab OR URL change in same tab
 			wait.until(d -> {
 				Set<String> newHandles = d.getWindowHandles();
@@ -213,18 +232,14 @@ public class BaseActions {
 			} else {
 				System.out.println("ℹ️ No new window detected — product opened in same tab.");
 			}
-
 			// Wait for page to finish loading
 			wait.until(d -> ((JavascriptExecutor) d).executeScript("return document.readyState").equals("complete"));
-
 			System.out.println("🟢 Page loaded successfully: " + driver.getCurrentUrl());
-
 		} catch (Exception e) {
 			System.err.println("❌ Failed to switch or detect new window: " + e.getMessage());
 		}
 	}
-	
-	
+		
 	public String switchToChildwindow()
 	{
 		Set<String> allwindowhandles = driver.getWindowHandles();

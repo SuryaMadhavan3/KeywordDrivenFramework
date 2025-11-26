@@ -1,119 +1,80 @@
 package keyword.framework.KeywordDrivenFramework;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import java.io.*;
+
 public class ExcelWriter {
 
-    private static final String EXCEL_PATH = FrameworkPaths.TESTDATA_PATH;
-    private static final String SHEET_NAME = "Purchase";
+    public static void updateStatus(String tcId, double actualTotal, String status) {
+        String excelPath = FrameworkPaths.TESTDATA_PATH;
+        String sheetName = "Purchase";
 
-    public static synchronized void updateStatus(String tcId, Double actualTotal, String status) {
+        try (FileInputStream fis = new FileInputStream(excelPath);
+             XSSFWorkbook wb = new XSSFWorkbook(fis)) {
 
-        if (tcId == null || (actualTotal == null && status == null)) {
-            System.out.println("❌ Nothing to update. Provide at least a value for Status or Actual Total.");
-            return;
-        }
-
-        FileInputStream fis = null;
-        FileOutputStream fos = null;
-
-        try {
-            fis = new FileInputStream(EXCEL_PATH);
-            XSSFWorkbook workbook = new XSSFWorkbook(fis);
-            Sheet sheet = workbook.getSheet(SHEET_NAME);
-
+            Sheet sheet = wb.getSheet(sheetName);
             if (sheet == null) {
-                workbook.close();
-                throw new RuntimeException("❌ Sheet '" + SHEET_NAME + "' not found!");
+                throw new RuntimeException("Sheet not found: " + sheetName);
             }
-
-            int tcIdCol = -1;
-            int actualCol = -1;
-            int statusCol = -1;
 
             Row header = sheet.getRow(0);
-
-            // 🔍 Find column indexes dynamically
-            for (int i = 0; i < header.getLastCellNum(); i++) {
-                String column = header.getCell(i).getStringCellValue().trim().toLowerCase();
-
-                if (column.equals("testcaseid")) tcIdCol = i;
-                if (column.equals("actual total amount")) actualCol = i;
-                if (column.equals("status")) statusCol = i;
+            if (header == null) {
+                throw new RuntimeException("Header row missing in sheet: " + sheetName);
             }
 
-            if (tcIdCol == -1) {
-                workbook.close();
-                throw new RuntimeException("❌ TestCaseID column missing in sheet!");
+            int tcCol = -1, actualCol = -1, statusCol = -1;
+
+            for (int c = 0; c < header.getLastCellNum(); c++) {
+                Cell cell = header.getCell(c);
+                if (cell == null) continue;
+                String name = cell.getStringCellValue().trim();
+
+                if (name.equalsIgnoreCase("TestCaseID")) {
+                    tcCol = c;
+                } else if (name.equalsIgnoreCase("Actual total amount")) {
+                    actualCol = c;
+                } else if (name.equalsIgnoreCase("Status")) {
+                    statusCol = c;
+                }
             }
 
-            boolean found = false;
+            if (tcCol == -1 || actualCol == -1 || statusCol == -1) {
+                throw new RuntimeException("❌ Required columns missing in sheet!");
+            }
 
+            // Find row with matching TestCaseID
             for (int r = 1; r <= sheet.getLastRowNum(); r++) {
                 Row row = sheet.getRow(r);
                 if (row == null) continue;
 
-                Cell tcCell = row.getCell(tcIdCol);
+                Cell tcCell = row.getCell(tcCol);
                 if (tcCell == null) continue;
 
-                String value = tcCell.getStringCellValue().trim();
-                if (value.equalsIgnoreCase(tcId)) {
+                String id = tcCell.getStringCellValue().trim();
+                if (!tcId.equalsIgnoreCase(id)) continue;
 
-                    // ✍ Update Actual Total if provided
-                    if (actualTotal != null && actualCol != -1) {
-                        Cell actualCell = row.getCell(actualCol);
-                        if (actualCell == null)
-                            actualCell = row.createCell(actualCol);
-                        actualCell.setCellValue(actualTotal);
-                    }
+                Cell actCell = row.getCell(actualCol);
+                if (actCell == null) actCell = row.createCell(actualCol);
+                actCell.setCellValue(actualTotal);
 
-                    // ✍ Update Status if provided
-                    if (status != null && statusCol != -1) {
-                        Cell statusCell = row.getCell(statusCol);
-                        if (statusCell == null)
-                            statusCell = row.createCell(statusCol);
-                        statusCell.setCellValue(status);
-                    }
+                Cell stCell = row.getCell(statusCol);
+                if (stCell == null) stCell = row.createCell(statusCol);
+                stCell.setCellValue(status);
 
-                    found = true;
-                    break;
-                }
+                break;
             }
 
-            if (!found) {
-                System.out.println("⚠️ TCID not found in Excel: " + tcId);
+            try (FileOutputStream fos = new FileOutputStream(excelPath)) {
+                wb.write(fos);
             }
 
-            fis.close(); // close input stream
-            fos = new FileOutputStream(EXCEL_PATH);
-            workbook.write(fos);
-            workbook.close();
-
-            System.out.println("📌 Excel Updated → TC: " + tcId +
-                    (actualTotal != null ? " | Actual=" + actualTotal : "") +
-                    (status != null ? " | Status=" + status : ""));
+            System.out.println("✅ Excel updated for " + tcId +
+                    " | ActualTotal=" + actualTotal + " | Status=" + status);
 
         } catch (Exception e) {
             System.out.println("❌ Excel update failed: " + e.getMessage());
-
-        } finally {
-            try { if (fis != null) fis.close(); } catch (IOException ignored) {}
-            try { if (fos != null) fos.close(); } catch (IOException ignored) {}
         }
-    }
-
-    // ✅ Convenience overload: Update only Status
-    public static synchronized void updateStatus(String tcId, String status) {
-        updateStatus(tcId, null, status);
-    }
-
-    // ✅ Convenience overload: Update only Actual Total
-    public static synchronized void updateStatus(String tcId, Double actualTotal) {
-        updateStatus(tcId, actualTotal, null);
     }
 }

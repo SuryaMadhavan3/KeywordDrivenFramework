@@ -7,122 +7,115 @@ import java.util.*;
 @Listeners({ keyword.framework.KeywordDrivenFramework.TestListener.class })
 public class KeywordDrivenTest extends BaseTest {
 
-	private KeywordExecutor executor;
-	private ExcelDataReader excel;
-	private String userName;
-	private Map<String, String> loginData;
+    private KeywordExecutor executor;
+    private ExcelDataReader excel;
+    private String userName;
+    private Map<String, String> loginData;
 
-	@BeforeClass
-	@Parameters("UserName")
-	public void setUser(String user) throws IOException {
-		this.userName = user;
-		System.out.println("♟️ Runner assigned to user: " + userName);
+    @BeforeClass
+    @Parameters("UserName")
+    public void setUser(String user) throws IOException {
+        this.userName = user;
+        System.out.println("♟️ Runner assigned to user: " + userName);
 
-		excel = new ExcelDataReader();
-		List<Map<String, String>> rows = excel.getTestDataRows("Login");
-		System.out.println(rows);
-		for (Map<String, String> row : rows) {
-			System.out.println(row);
-			if (row.get("UsersName").equalsIgnoreCase(userName)) {
-				loginData = row;
-				break;
-			}
-		}
+        excel = new ExcelDataReader();
+        List<Map<String, String>> rows = excel.getTestDataRows("Login");
 
-		if (loginData == null) {
-			throw new RuntimeException("Login data not found for user: " + userName);
-		}
-	}
+        for (Map<String, String> row : rows) {
+            if (row.get("UsersName").equalsIgnoreCase(userName)) {
+                loginData = row;
+                break;
+            }
+        }
 
-	@Test(priority = 1)
-	public void loginOnce() throws IOException {
+        if (loginData == null) {
+            throw new RuntimeException("Login data not found for user: " + userName);
+        }
+    }
 
-		System.out.println("🔑 [" + userName + "] Performing one-time login...");
+    @Test(priority = 1)
+    public void loginOnce() throws IOException {
 
-		initializeDriver(userName);
-		openBaseUrl();
+        System.out.println("🔑 [" + userName + "] Performing one-time login...");
 
-		executor = new KeywordExecutor(getDriver());
-		List<Map<String, String>> steps = excel.getKeywordSteps("Login");
-		executor.executeSteps(steps, "Login", loginData);
+        initializeDriver(userName);
+        openBaseUrl();
 
-		System.out.println("✔ Login completed for user: " + userName);
+        executor = new KeywordExecutor(getDriver());
+        List<Map<String, String>> steps = excel.getKeywordSteps("Login");
+        executor.executeSteps(steps, "Login", loginData);
 
-		// quitDriver();
-	}
+        System.out.println("✔ Login completed for user: " + userName);
 
-	// PURCHASE EXECUTION USING SHARED QUEUE
-	@Test(priority = 2, dataProvider = "PurchaseGroupData", dataProviderClass = DataProviderUtil.class)
-	public void runPurchases(String dummy) throws Exception {
+        quitDriver(); // keep Chrome profile with session
+    }
 
-		while (true) {
+    // PURCHASE EXECUTION USING SHARED QUEUE
+    @Test(priority = 2, dataProvider = "PurchaseGroupData", dataProviderClass = DataProviderUtil.class)
+    public void runPurchases(String dummy) throws Exception {
 
-			Map<String, Object> testCase = TestCaseQueue.getNextPurchaseCase();
-			if (testCase == null) {
-				System.out.println("🛑 [" + userName + "] No more Purchase test cases.");
-				break;
-			}
+        while (true) {
+            Map<String, Object> testCase = TestCaseQueue.getNextPurchaseCase();
+            if (testCase == null) {
+                System.out.println("🛑 [" + userName + "] No more Purchase test cases.");
+                break;
+            }
+            executeTestCase("Purchase", testCase);
+        }
+    }
 
-			executeTestCase("Purchase", testCase);
-		}
-	}
+    @SuppressWarnings("unchecked")
+    private void executeTestCase(String module, Map<String, Object> testCase) throws Exception {
 
-	// COMMON EXECUTION METHOD FOR ANY MODULE
-	@SuppressWarnings("unchecked")
-	private void executeTestCase(String module, Map<String, Object> testCase) throws Exception {
+        String tcId = (String) testCase.get("TestCaseID");
+        List<String> products = (List<String>) testCase.get("Products");
+        double expectedTotal = (double) testCase.get("ExpectedTotal");
 
-		String tcId = (String) testCase.get("TestCaseID");
-		List<String> products = (List<String>) testCase.get("Products");
-		List<Double> expectedPrices = (List<Double>) testCase.get("ExpectedPrices");
+        System.out.println("\n🚀 [" + userName + "] Running " + module + " TestCase: " + tcId);
+        System.out.println("   Products: " + products);
+        System.out.println("   Expected Total: " + expectedTotal);
 
-		System.out.println("TestCase : " + tcId);
-		System.out.println("Products : " + products);
-		System.out.println("Products Expected Price : " + expectedPrices);
+        // 🔹 Open browser with saved login
+        initializeDriver(userName);
+        openBaseUrl();
 
-		System.out.println("\n🚀 [" + userName + "] Running " + module + " TestCase: " + tcId);
+        executor = new KeywordExecutor(getDriver());
 
-		// Open browser with saved login
-		initializeDriver(userName);
-		openBaseUrl();
+        // Load keyword steps for 3 modules
+        List<Map<String, String>> purchaseSteps   = excel.getKeywordSteps("Purchase");
+        List<Map<String, String>> cartCleanupSteps= excel.getKeywordSteps("CartCleanup");
+        List<Map<String, String>> cartTotalSteps  = excel.getKeywordSteps("CartTotal");
 
-		executor = new KeywordExecutor(getDriver());
-		List<Map<String, String>> steps = excel.getKeywordSteps(module);
+        // 1️⃣ PRE: clear the cart
+        executor.executeSteps(cartCleanupSteps, "CartCleanup", Collections.emptyMap());
 
-		for (int i = 0; i < products.size(); i++) {
+        // 2️⃣ MAIN: execute Purchase steps once per product
+        for (String product : products) {
+            Map<String, String> data = Map.of("Product", product);
+            System.out.println("➡ [" + userName + "][TC:" + tcId + "] Product: " + product);
+            executor.executeSteps(purchaseSteps, module, data);
+        }
 
-			String product = products.get(i);
-			double expectedPrice = expectedPrices.get(i);
+        // 3️⃣ POST: go to cart & read total
+        executor.executeSteps(cartTotalSteps, "CartTotal", Collections.emptyMap());
+        double cartTotal = executor.getLastExtractedPrice();
 
-			Map<String, String> data = Map.of("Product", product);
+        System.out.println("🧮 Expected total: " + expectedTotal + " | Cart total (actual): " + cartTotal);
 
-			System.out.println("🔍 [" + tcId + "] Checking Product " + (i + 1) + ": " + product);
+        boolean isMatch = Math.round(cartTotal) == Math.round(expectedTotal);
 
-			// 🔹 Single call – Excel drives ALL Purchase steps
-			executor.executeSteps(steps, module, data);
+        ExcelWriter.updateStatus(tcId, cartTotal, isMatch ? "PASS" : "FAIL");
 
-			// 🔹 Read price captured by getprice action
-			double actualPrice = executor.getLastExtractedPrice();
-			System.out.println("💰 Expected: " + expectedPrice + " | Actual: " + actualPrice);
+        quitDriver();
+    }
 
-			// 🔹 Compare price for this product
-			if (actualPrice != expectedPrice) {
-				System.out.println("❌ Price mismatch for product: " + product + ". Failing test case: " + tcId);
-				ExcelWriter.updateStatus(tcId, "Fail");
-				quitDriver();
-				return; // stop this test case immediately
-			}
-		}
-
-		quitDriver();
-	}
-
-	@AfterMethod(alwaysRun = true)
-	public void closeBrowserAfterTC() {
-		try {
-			quitDriver();
-			System.out.println("🧹 [" + userName + "] Browser closed after test case.");
-		} catch (Exception e) {
-			System.out.println("⚠️ [" + userName + "] Error closing browser: " + e.getMessage());
-		}
-	}
+    @AfterMethod(alwaysRun = true)
+    public void closeBrowserAfterTC() {
+        try {
+            quitDriver();
+            System.out.println("🧹 [" + userName + "] Browser closed after test case.");
+        } catch (Exception e) {
+            System.out.println("⚠️ [" + userName + "] Error closing browser: " + e.getMessage());
+        }
+    }
 }

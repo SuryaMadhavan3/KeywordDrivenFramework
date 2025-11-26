@@ -6,9 +6,9 @@ public class Vehicle {
 		System.out.println("Engine Starts Succesfully");
 	}
 	
-	static Car c = new Car();
+	Car c = new Car();
 	public static void main(String[] args) {
-
+		Car c = new Car();
 		// System.out.println("Static Method is running.");
 		c.maruthi();//Cannot make a static reference to the non-static field c
 	}
