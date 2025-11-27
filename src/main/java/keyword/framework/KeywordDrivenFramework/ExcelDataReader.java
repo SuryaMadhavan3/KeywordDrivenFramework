@@ -55,7 +55,25 @@ public class ExcelDataReader {
 					if (header.isEmpty())
 						continue;
 
-					String cellValue = new DataFormatter().formatCellValue(row.getCell(j)).trim();
+					Cell cell = row.getCell(j);
+					DataFormatter formatter = new DataFormatter();
+					FormulaEvaluator evaluator = workbook.getCreationHelper().createFormulaEvaluator();
+
+					String cellValue;
+
+					if (cell != null) {
+					    switch (cell.getCellType()) {
+
+					        case FORMULA:
+					            cellValue = formatter.formatCellValue(cell, evaluator).trim();
+					            break;
+
+					        default:
+					            cellValue = formatter.formatCellValue(cell).trim();
+					    }
+					} else {
+					    cellValue = "";
+					}
 
 					if (!cellValue.isEmpty()) {
 						isRowEmpty = false; // Found a non-empty cell
@@ -148,6 +166,7 @@ public class ExcelDataReader {
             }
 
             double expectedTotal = Double.parseDouble(row.get("Expected total amount"));
+            System.out.println("Expected Total: " + expectedTotal);
 
             Map<String, Object> map = new HashMap<>();
             map.put("TestCaseID", tcId);

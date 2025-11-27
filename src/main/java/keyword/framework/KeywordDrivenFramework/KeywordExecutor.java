@@ -114,6 +114,10 @@ public class KeywordExecutor extends BaseActions {
 			case "deleteallincart":
 			    deleteAllInCart(locatorType, locatorValue);
 			    break;
+			    
+			case "getcarttotal":
+                lastExtractedPrice = getprice(locatorType, locatorValue);
+                break;
 
 			default:
 				System.out.println("❌ Unknown action: " + action);

@@ -22,15 +22,14 @@ public class BaseActions {
 	private WebDriver driver;
 	private WebDriverWait wait;
 	private Actions actions;
- 
 
 	public BaseActions(WebDriver driver) {
 		this.driver = driver;
 		this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
 		this.actions = new Actions(driver);
 	}
-	
-	//Locator Converter
+
+	// Locator Converter
 	public By getBy(String locatorType, String locatorValue) {
 		switch (locatorType.toLowerCase()) {
 
@@ -151,32 +150,31 @@ public class BaseActions {
 		}
 		System.out.println("[INFO] Product not found: " + text);
 	}
-	
+
 	public void deleteAllInCart(String locatorType, String locatorValue) {
 		try {
-			String[] locators = locatorValue.split("||");
-			String productListLocator = locators[0].trim();
-			String deleteBtnLocator = locators[1].trim();
-			
-			List<WebElement> products = driver.findElements(getBy(locatorType, productListLocator));
-			int total = products.size();
-			
-			for(int i=0; i<total;i++) {
-				String dynamicDeleteXpath = deleteBtnLocator.replace("Index", "1");
-				WebElement deleteButton = wait.until(ExpectedConditions.elementToBeClickable(getBy(locatorType, dynamicDeleteXpath)));
-				deleteButton.click();
-				
-				wait.until(ExpectedConditions.stalenessOf(deleteButton));
-				sleep(3000);
+			while (true) {
+				List<WebElement> deleteButtons = driver.findElements(getBy(locatorType, locatorValue));
+
+				if (deleteButtons.isEmpty()) {
+					System.out.println("🧺 Cart is already empty.");
+					break;
+				}
+
+				// Always click the first visible delete button
+				WebElement btn = deleteButtons.get(0);
+				((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", btn);
+				btn.click();
+				System.out.println("🗑 Deleted one cart item");
+
+				// Small wait so the DOM updates
+				Thread.sleep(1000);
 			}
-				
-			System.out.println("All cart items deleted.");
-			
-		}catch(Exception e) {
-			System.out.println("❌ Failed to delete all items: " + e.getMessage());
+		} catch (Exception e) {
+			System.out.println("❌ Failed while clearing cart: " + e.getMessage());
 		}
 	}
-	
+
 	public void acceptAlert() {
 		try {
 			Alert alert = wait.until(ExpectedConditions.alertIsPresent());
@@ -204,7 +202,7 @@ public class BaseActions {
 	public void switchToNewWindowAndWait(int timeoutSeconds) {
 		try {
 			// Save the current window and URL before the click
-			//String originalHandle = driver.getWindowHandle();
+			// String originalHandle = driver.getWindowHandle();
 			Set<String> oldHandles = driver.getWindowHandles();
 			System.out.println("Current window handles before click: " + oldHandles.size());
 			Thread.sleep(2000); // Pause to let any new tab open (if needed)
@@ -239,9 +237,8 @@ public class BaseActions {
 			System.err.println("❌ Failed to switch or detect new window: " + e.getMessage());
 		}
 	}
-		
-	public String switchToChildwindow()
-	{
+
+	public String switchToChildwindow() {
 		Set<String> allwindowhandles = driver.getWindowHandles();
 		Iterator<String> it = allwindowhandles.iterator();
 		String parentId = it.next();
@@ -249,9 +246,8 @@ public class BaseActions {
 		driver.switchTo().window(childId);
 		return parentId;
 	}
-	
-	public void switchwindow(String windowId)
-	{
+
+	public void switchwindow(String windowId) {
 		driver.switchTo().window(windowId);
 	}
 
@@ -316,39 +312,39 @@ public class BaseActions {
 		driver.navigate().to(url);
 		System.out.println("[ACTION] Navigated to: " + url);
 	}
-	
+
 	public double getprice(String locatorType, String locatorValue) {
 		try {
-	        WebElement priceEl = new WebDriverWait(driver, Duration.ofSeconds(10))
-	                .until(ExpectedConditions.visibilityOfElementLocated(getBy(locatorType, locatorValue)));
-	        
-	        String priceText = priceEl.getText();
-	        double result = parsePriceString(priceText);
+			WebElement priceEl = new WebDriverWait(driver, Duration.ofSeconds(10))
+					.until(ExpectedConditions.visibilityOfElementLocated(getBy(locatorType, locatorValue)));
 
-	        System.out.println("💰 Extracted Price: " + result);
-	        return result;
-	    } 
-	    catch (Exception e) {
-	        System.out.println("❌ Failed to extract price: " + e.getMessage());
-	        return 0;
-	    }
+			String priceText = priceEl.getText();
+			double result = parsePriceString(priceText);
+
+			System.out.println("💰 Extracted Price: " + result);
+			return result;
+		} catch (Exception e) {
+			System.out.println("❌ Failed to extract price: " + e.getMessage());
+			return 0;
+		}
 	}
-	
+
 	public double parsePriceString(String priceText) {
-	    if (priceText == null) return 0;
+		if (priceText == null)
+			return 0;
 
-	    // Keep only digits, commas, periods
-	    priceText = priceText.replaceAll("[^0-9.,]", "");
+		// Keep only digits, commas, periods
+		priceText = priceText.replaceAll("[^0-9.,]", "");
 
-	    // Remove commas
-	    priceText = priceText.replace(",", "");
+		// Remove commas
+		priceText = priceText.replace(",", "");
 
-	    try {
-	        return Double.parseDouble(priceText);
-	    } catch (Exception e) {
-	        System.out.println("❌ Price parse failed: " + priceText);
-	        return 0;
-	    }
+		try {
+			return Double.parseDouble(priceText);
+		} catch (Exception e) {
+			System.out.println("❌ Price parse failed: " + priceText);
+			return 0;
+		}
 	}
 
 }

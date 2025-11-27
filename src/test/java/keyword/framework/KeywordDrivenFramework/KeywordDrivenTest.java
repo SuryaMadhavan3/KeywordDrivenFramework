@@ -47,7 +47,7 @@ public class KeywordDrivenTest extends BaseTest {
 
         System.out.println("✔ Login completed for user: " + userName);
 
-        quitDriver(); // keep Chrome profile with session
+        quitDriver(); 
     }
 
     // PURCHASE EXECUTION USING SHARED QUEUE
@@ -72,8 +72,8 @@ public class KeywordDrivenTest extends BaseTest {
         double expectedTotal = (double) testCase.get("ExpectedTotal");
 
         System.out.println("\n🚀 [" + userName + "] Running " + module + " TestCase: " + tcId);
-        System.out.println("   Products: " + products);
-        System.out.println("   Expected Total: " + expectedTotal);
+        System.out.println("⏭️ Products: " + products);
+        System.out.println("Expected Total: " + expectedTotal);
 
         // 🔹 Open browser with saved login
         initializeDriver(userName);
@@ -94,18 +94,15 @@ public class KeywordDrivenTest extends BaseTest {
             Map<String, String> data = Map.of("Product", product);
             System.out.println("➡ [" + userName + "][TC:" + tcId + "] Product: " + product);
             executor.executeSteps(purchaseSteps, module, data);
+            
         }
 
         // 3️⃣ POST: go to cart & read total
         executor.executeSteps(cartTotalSteps, "CartTotal", Collections.emptyMap());
         double cartTotal = executor.getLastExtractedPrice();
-
         System.out.println("🧮 Expected total: " + expectedTotal + " | Cart total (actual): " + cartTotal);
-
         boolean isMatch = Math.round(cartTotal) == Math.round(expectedTotal);
-
         ExcelWriter.updateStatus(tcId, cartTotal, isMatch ? "PASS" : "FAIL");
-
         quitDriver();
     }
 
