@@ -1,0 +1,61 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.selenium.test'
+version = '0.0.1-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(24)
+    }
+}
+
+dependencies {
+    // Selenium
+    implementation 'org.seleniumhq.selenium:selenium-java:4.36.0'
+
+    // Extent Reports
+    implementation 'com.aventstack:extentreports:5.1.2'
+
+    // TestNG
+    testImplementation 'org.testng:testng:7.11.0'
+
+    // Apache POI
+    implementation 'org.apache.poi:poi:5.2.3'
+    implementation 'org.apache.poi:poi-ooxml:5.2.3'
+
+    // Commons IO
+    implementation 'commons-io:commons-io:2.11.0'
+
+    // SLF4J
+    implementation 'org.slf4j:slf4j-api:2.0.9'
+
+    // SLF4J to Log4j2 bridge
+    implementation 'org.apache.logging.log4j:log4j-slf4j2-impl:2.20.0'
+
+    // Jackson Databind
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.20.0'
+
+    // Log4j2
+    implementation 'org.apache.logging.log4j:log4j-core:2.20.0'
+    implementation 'org.apache.logging.log4j:log4j-api:2.20.0'
+}
+
+tasks.test {
+    useTestNG() {
+        suites 'testng.xml'
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+tasks.withType(Javadoc) {
+    options.encoding = 'UTF-8'
+}

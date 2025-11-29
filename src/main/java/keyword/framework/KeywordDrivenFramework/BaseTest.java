@@ -5,14 +5,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Duration;
-import java.util.Comparator;
 import java.util.Map;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.AfterSuite;
 
 public class BaseTest {
 
@@ -35,9 +33,9 @@ public class BaseTest {
 
 		String browserName = config.get("Browser");
 		baseUrl = config.get("URL");
-		//System.out.println("Browser Name : "+browserName);
-		//System.out.println("URL : "+baseUrl);
-		
+		// System.out.println("Browser Name : "+browserName);
+		// System.out.println("URL : "+baseUrl);
+
 		WebDriver driver;
 		ChromeOptions options = new ChromeOptions();
 
@@ -74,31 +72,12 @@ public class BaseTest {
 		System.out.println("Navigated to:" + baseUrl);
 		System.out.println("URL Title:" + title);
 	}
-	
+
 	public void reopenBrowser(String userName) throws IOException {
 		quitDriver();
-		System.out.println("🔁 Reopening browser for user: "+userName);
+		System.out.println("🔁 Reopening browser for user: " + userName);
 		initializeDriver(userName);
 		openBaseUrl();
-	}
-	
-	@AfterSuite(alwaysRun = true)
-	public void cleanupProfiles1() {
-		try {
-			Path baseDir = Paths.get(System.getProperty("user.dir"));
-			Files.list(baseDir).filter(path -> path.getFileName().toString().startsWith("tempProfile_"))
-					.forEach(folder -> {
-						try {
-							Files.walk(folder).sorted(Comparator.reverseOrder()).map(Path::toFile)
-									.forEach(java.io.File::delete);
-							System.out.println("Deleted " + folder.getFileName());
-						} catch (Exception e) {
-							System.out.println("Could not delete " + folder.getFileName() + ": " + e.getMessage());
-						}
-					});
-		} catch (Exception e) {
-			System.out.println("Cleanup failed: " + e.getMessage());
-		}
 	}
 
 	public void quitDriver() {
