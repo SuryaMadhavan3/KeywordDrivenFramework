@@ -1,4 +1,4 @@
-package keyword.framework.KeywordDrivenFramework;
+package keyword.framework.core;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -16,55 +16,62 @@ public class BaseTest {
 
 	private static ThreadLocal<WebDriver> threadDriver = new ThreadLocal<>();
 	private static ThreadLocal<WebDriverWait> threadWait = new ThreadLocal<>();
-	protected BrowserReader configData;
-	private String baseUrl;
+	protected ConfigReader configData;
+	private String browserName, baseUrl;
 
-	public WebDriver getDriver() {
+	public WebDriver getDriver() 
+	{
 		return threadDriver.get();
 	}
 
-	public WebDriverWait getWait() {
+	public WebDriverWait getWait() 
+	{
 		return threadWait.get();
 	}
 
 	public void initializeDriver(String userName) throws IOException {
-		configData = new BrowserReader();
-		Map<String, String> config = configData.getConfiguration(FrameworkPaths.CONFIG_PATH, "Configuration");
+		configData = new ConfigReader();
+		Map<String, String> config = configData.getConfigData();
 
-		String browserName = config.get("Browser");
+		browserName = config.get("Browser");
 		baseUrl = config.get("URL");
 		// System.out.println("Browser Name : "+browserName);
 		// System.out.println("URL : "+baseUrl);
 
 		WebDriver driver;
-		ChromeOptions options = new ChromeOptions();
 
-		Path baseProfiles = Paths.get(System.getProperty("user.dir"), "tempProfiles");
-		Files.createDirectories(baseProfiles);
-		Path userProfileDir = baseProfiles.resolve(userName + "_profile");
-		Files.createDirectories(userProfileDir);
-		options.addArguments("user-data-dir=" + userProfileDir.toAbsolutePath().toString());
-
-		if (browserName.equalsIgnoreCase("chrome")) {
+		if (browserName.equalsIgnoreCase("chrome")) 
+		{
+			ChromeOptions options = new ChromeOptions();
+			
+			// User profile folder (session persistence)
+			Path baseProfiles = Paths.get(System.getProperty("user.dir"), "tempProfiles");
+			Files.createDirectories(baseProfiles);
+			
+			Path userProfileDir = baseProfiles.resolve(userName + "_profile");
+			Files.createDirectories(userProfileDir);
+			
+			options.addArguments("user-data-dir=" + userProfileDir.toAbsolutePath().toString());
 			options.addArguments("--start-maximized");
-			options.addArguments("--disable-save-password-bubble");
-			options.addArguments("--disable-extensions");
-			options.addArguments("--no-first-run");
 			options.addArguments("--disable-notifications");
 			options.addArguments("--disable-popup-blocking");
 
 			driver = new ChromeDriver(options);
-		} else {
+		} 
+		else 
+		{
 			throw new RuntimeException("Unsupported browser: " + browserName);
 		}
 
 		threadDriver.set(driver);
 		threadWait.set(new WebDriverWait(driver, Duration.ofSeconds(15)));
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		 System.out.println("🌐 Browser Launched for User: " + userName);
 	}
 
 	public void openBaseUrl() {
-		if (baseUrl == null || baseUrl.isEmpty()) {
+		if (baseUrl == null || baseUrl.isEmpty()) 
+		{
 			throw new RuntimeException("Base URL missing in ConfigData.xlsx!");
 		}
 		getDriver().get(baseUrl);
@@ -81,10 +88,16 @@ public class BaseTest {
 	}
 
 	public void quitDriver() {
-		if (getDriver() != null) {
-			getDriver().quit();
+		try {
+			WebDriver driver = getDriver();
+			if (driver != null) {
+				driver.quit();
+			}
+		} finally {
 			threadDriver.remove();
 			threadWait.remove();
 		}
+
+		System.out.println("🛑 Browser Closed");
 	}
 }

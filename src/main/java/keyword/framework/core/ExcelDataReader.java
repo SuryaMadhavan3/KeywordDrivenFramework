@@ -1,4 +1,4 @@
-package keyword.framework.KeywordDrivenFramework;
+package keyword.framework.core;
 
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -111,32 +111,6 @@ public class ExcelDataReader {
 	}
 	
     
-    /*public Map<String, List<String>> getGroupedTestData(String sheetName) throws IOException {
-        List<Map<String, String>> rows = readSheet(FrameworkPaths.TESTDATA_PATH, sheetName);
-        Map<String, List<String>> groupedData = new LinkedHashMap<>();
-
-        for (Map<String, String> row : rows) {
-            String testCaseId = row.get("TestCaseID");
-            if (testCaseId == null || testCaseId.trim().isEmpty()) continue;
-
-            List<String> products = new ArrayList<>();
-            List<Double> prices = new ArrayList<>(); // Step 4 Need to continue
-
-            for (Map.Entry<String, String> entry : row.entrySet()) {
-                String key = entry.getKey();
-                String val = entry.getValue();
-                if (key != null && key.toLowerCase().startsWith("product") && val != null && !val.trim().isEmpty()) {
-                    products.add(val.trim());
-                }
-            }
-            if (!products.isEmpty()) {
-                groupedData.put(testCaseId.trim(), products);
-            }
-        }
-        System.out.println("✅ Grouped " + groupedData.size() + " testcases from sheet: " + sheetName);
-        return groupedData;
-    }*/
-    
     public Map<String, Map<String, Object>> getGroupedPurchaseData(String sheetName) throws IOException {
 
         List<Map<String, String>> rows = readSheet(FrameworkPaths.TESTDATA_PATH, sheetName);
@@ -181,11 +155,11 @@ public class ExcelDataReader {
     }
 
 
-	public List<Map<String, String>> getKeywordSteps(String moduleName) throws IOException {
+	public List<Map<String, String>> getTestSteps(String moduleName) throws IOException {
 		return readSheet(FrameworkPaths.KEYWORD_PATH, moduleName);
 	}
 
-	public List<Map<String, String>> getTestDataRows(String sheetName) throws IOException {
+	public List<Map<String, String>> getTestData(String sheetName) throws IOException {
 		return readSheet(FrameworkPaths.TESTDATA_PATH, sheetName);
 	}
 

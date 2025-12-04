@@ -1,4 +1,4 @@
-package keyword.framework.KeywordDrivenFramework;
+package keyword.framework.core;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -313,38 +313,23 @@ public class BaseActions {
 		System.out.println("[ACTION] Navigated to: " + url);
 	}
 
-	public double getprice(String locatorType, String locatorValue) {
-		try {
-			WebElement priceEl = new WebDriverWait(driver, Duration.ofSeconds(10))
-					.until(ExpectedConditions.visibilityOfElementLocated(getBy(locatorType, locatorValue)));
-
-			String priceText = priceEl.getText();
-			double result = parsePriceString(priceText);
-
-			System.out.println("💰 Extracted Price: " + result);
-			return result;
-		} catch (Exception e) {
-			System.out.println("❌ Failed to extract price: " + e.getMessage());
-			return 0;
-		}
+	public double getNumericValue(String locatorType, String locatorValue) {
+	    try {
+	        WebElement el = wait.until(ExpectedConditions.visibilityOfElementLocated(getBy(locatorType, locatorValue)));
+	        String rawText = el.getText();
+	        if (rawText == null || rawText.trim().isEmpty()) {
+	            System.out.println("❌ No text found at locator: " + locatorValue);
+	            return 0.0;
+	        }
+	        String cleaned = rawText.replaceAll("[^0-9.,-]", "").replace(",", "");
+	        double result = Double.parseDouble(cleaned);
+	        System.out.println("🔢 Extracted numeric value: " + result + " | From Text: " + rawText);
+	        return result;
+	    } catch (Exception e) {
+	        System.out.println("❌ Failed to extract numeric value: " + e.getMessage());
+	        return 0.0;
+	    }
 	}
 
-	public double parsePriceString(String priceText) {
-		if (priceText == null)
-			return 0;
-
-		// Keep only digits, commas, periods
-		priceText = priceText.replaceAll("[^0-9.,]", "");
-
-		// Remove commas
-		priceText = priceText.replace(",", "");
-
-		try {
-			return Double.parseDouble(priceText);
-		} catch (Exception e) {
-			System.out.println("❌ Price parse failed: " + priceText);
-			return 0;
-		}
-	}
 
 }

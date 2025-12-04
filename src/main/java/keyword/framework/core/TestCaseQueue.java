@@ -1,4 +1,4 @@
-package keyword.framework.KeywordDrivenFramework;
+package keyword.framework.core;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;

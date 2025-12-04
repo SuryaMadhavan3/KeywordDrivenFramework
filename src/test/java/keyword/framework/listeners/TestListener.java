@@ -1,6 +1,11 @@
-package keyword.framework.KeywordDrivenFramework;
+package keyword.framework.listeners;
 
 import com.aventstack.extentreports.*;
+
+import keyword.framework.core.BaseTest;
+import keyword.framework.core.ExtentManager;
+import keyword.framework.core.ScreenShotUtils;
+
 import org.testng.*;
 
 public class TestListener extends BaseTest implements ITestListener {
@@ -10,22 +15,28 @@ public class TestListener extends BaseTest implements ITestListener {
 
     @Override
     public void onTestStart(ITestResult result) {
-        ExtentTest extentTest = extent.createTest(result.getMethod().getMethodName());
+    	String testName = result.getMethod().getMethodName();
+        ExtentTest extentTest = extent.createTest(testName);
         test.set(extentTest);
+        
+        System.out.println("🚀 TEST STARTED: " + testName);
     }
 
     @Override
     public void onTestSuccess(ITestResult result) {
+    	String testName = result.getMethod().getMethodName(); 
         test.get().log(Status.PASS, "Test Passed");
+        System.out.println("✅ TEST PASSED: " + testName);
     }
 
     @Override
     public void onTestFailure(ITestResult result) {
-        test.get().log(Status.FAIL, "Test Failed");
+    	String testName = result.getMethod().getMethodName(); 
+    	
+		test.get().log(Status.FAIL, "Test Failed");
         test.get().log(Status.FAIL, result.getThrowable());
-
         // Capture screenshot with current WebDriver from BaseTest
-        String screenshotPath = ScreenShotUtils.captureScreenshot(getDriver(), result.getMethod().getMethodName());
+        String screenshotPath = ScreenShotUtils.captureScreenshot(getDriver(), testName + "_FAILED");
         if (screenshotPath != null) {
             try {
                 test.get().addScreenCaptureFromPath(screenshotPath);
@@ -33,18 +44,20 @@ public class TestListener extends BaseTest implements ITestListener {
                 test.get().log(Status.WARNING, "⚠️ Screenshot could not be attached.");
                 e.printStackTrace();
             }
-        } else {
-            test.get().log(Status.WARNING, "Screenshot path was null.");
+        } 
+        System.out.println("❌ TEST FAILED: " + testName);
         }
-    }
-
+    
     @Override
     public void onTestSkipped(ITestResult result) {
+    	String testName = result.getMethod().getMethodName();
         test.get().log(Status.SKIP, "Test Skipped");
+        System.out.println("⚠ TEST SKIPPED: " + testName);
     }
 
     @Override
     public void onFinish(ITestContext context) {
         extent.flush();
+        System.out.println("📄 Extent Report Generated");
     }
 }

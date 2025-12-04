@@ -1,4 +1,4 @@
-package keyword.framework.KeywordDrivenFramework;
+package keyword.framework.dataproviders;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -8,6 +8,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.testng.annotations.DataProvider;
+
+import keyword.framework.core.ExcelDataReader;
+import keyword.framework.core.TestCaseQueue;
 
 public class DataProviderUtil {
 
@@ -33,7 +36,7 @@ public class DataProviderUtil {
 			return new Object[][] { { "USE_QUEUE" } };
 		}
 
-		List<Map<String, String>> rows = reader.getTestDataRows("Purchase");
+		List<Map<String, String>> rows = reader.getTestData("Purchase");
 		List<Map<String, Object>> grouped = new ArrayList<>();
 
 		for (Map<String, String> row : rows) {
@@ -89,7 +92,7 @@ public class DataProviderUtil {
 	// Login provider unchanged
 	@DataProvider(name = "LoginData")
 	public static Iterator<Object[]> loginData() throws IOException {
-		List<Map<String, String>> list = reader.getTestDataRows("Login");
+		List<Map<String, String>> list = reader.getTestData("Login");
 		List<Object[]> out = new ArrayList<>();
 		for (Map<String, String> m : list) {
 			out.add(new Object[] { m });

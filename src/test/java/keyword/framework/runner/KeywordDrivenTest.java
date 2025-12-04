@@ -1,4 +1,4 @@
-package keyword.framework.KeywordDrivenFramework;
+package keyword.framework.runner;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -16,7 +16,14 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-@Listeners({ keyword.framework.KeywordDrivenFramework.TestListener.class })
+import keyword.framework.core.BaseTest;
+import keyword.framework.core.ExcelDataReader;
+import keyword.framework.core.ExcelWriter;
+import keyword.framework.core.KeywordExecutor;
+import keyword.framework.core.TestCaseQueue;
+import keyword.framework.dataproviders.DataProviderUtil;
+
+@Listeners({ keyword.framework.listeners.TestListener.class })
 public class KeywordDrivenTest extends BaseTest {
 
 	private KeywordExecutor executor;
@@ -31,7 +38,7 @@ public class KeywordDrivenTest extends BaseTest {
 		System.out.println("♟️ Runner assigned to user: " + userName);
 
 		excel = new ExcelDataReader();
-		List<Map<String, String>> rows = excel.getTestDataRows("Login");
+		List<Map<String, String>> rows = excel.getTestData("Login");
 
 		for (Map<String, String> row : rows) {
 			if (row.get("UsersName").equalsIgnoreCase(userName)) {
@@ -54,7 +61,7 @@ public class KeywordDrivenTest extends BaseTest {
 		openBaseUrl();
 
 		executor = new KeywordExecutor(getDriver());
-		List<Map<String, String>> steps = excel.getKeywordSteps("Login");
+		List<Map<String, String>> steps = excel.getTestSteps("Login");
 		executor.executeSteps(steps, "Login", loginData);
 
 		System.out.println("✔ Login completed for user: " + userName);
@@ -94,9 +101,9 @@ public class KeywordDrivenTest extends BaseTest {
 		executor = new KeywordExecutor(getDriver());
 
 		// Load keyword steps for 3 modules
-		List<Map<String, String>> purchaseSteps = excel.getKeywordSteps("Purchase");
-		List<Map<String, String>> cartCleanupSteps = excel.getKeywordSteps("CartCleanup");
-		List<Map<String, String>> cartTotalSteps = excel.getKeywordSteps("CartTotal");
+		List<Map<String, String>> purchaseSteps = excel.getTestSteps("Purchase");
+		List<Map<String, String>> cartCleanupSteps = excel.getTestSteps("CartCleanup");
+		List<Map<String, String>> cartTotalSteps = excel.getTestSteps("CartTotal");
 
 		// 1️⃣ PRE: clear the cart
 		executor.executeSteps(cartCleanupSteps, "CartCleanup", Collections.emptyMap());
@@ -105,8 +112,8 @@ public class KeywordDrivenTest extends BaseTest {
 		for (String product : products) {
 			Map<String, String> data = Map.of("Product", product);
 			System.out.println("➡ [" + userName + "][TC:" + tcId + "] Product: " + product);
-			executor.executeSteps(purchaseSteps, module, data);
-
+			executor.executeSteps(purchaseSteps, "Purchase", data);
+			//double productPrice = executor.getLastExtractedPrice();
 		}
 
 		// 3️⃣ POST: go to cart & read total

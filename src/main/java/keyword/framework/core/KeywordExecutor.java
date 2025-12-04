@@ -1,4 +1,4 @@
-package keyword.framework.KeywordDrivenFramework;
+package keyword.framework.core;
 
 import org.openqa.selenium.WebDriver;
 import java.util.List;
@@ -102,13 +102,13 @@ public class KeywordExecutor extends BaseActions {
 			case "findelement":
 				System.out.println("[CHECK] Element found: " + findElement(locatorType, locatorValue));
 				break;
-			//case "noop":
+			
 			case "comment":
 				System.out.println("📝 Comment: " + data);
 				break;
 
 			case "getprice":
-				lastExtractedPrice = getprice(locatorType, locatorValue);
+				lastExtractedPrice = getNumericValue(locatorType, locatorValue);
 				break;
 				
 			case "deleteallincart":
@@ -116,7 +116,7 @@ public class KeywordExecutor extends BaseActions {
 			    break;
 			    
 			case "getcarttotal":
-                lastExtractedPrice = getprice(locatorType, locatorValue);
+                lastExtractedPrice = getNumericValue(locatorType, locatorValue);
                 break;
 
 			default:
@@ -142,14 +142,14 @@ public class KeywordExecutor extends BaseActions {
 			String action = step.get("Action");
 			String locatorType = step.get("LocatorType");
 			String locatorValue = step.get("LocatorValue");
-			String dataKey = step.get("TestData");
-			String actualData = (dataKey != null && !dataKey.isEmpty()) ? testData.getOrDefault(dataKey, dataKey)
+			String rawDataKey = step.get("TestData");
+			String data  = (rawDataKey != null && !rawDataKey.isEmpty()) ? testData.getOrDefault(rawDataKey, rawDataKey)
 					: null;
 
 			System.out.println("➡️ Executing: " + action + " || Locator: [" + locatorType + "=" + locatorValue
-					+ "] || Data: " + actualData);
+					+ "] || Data: " + data);
 
-			executeKeyword(action, locatorType, locatorValue, actualData);
+			executeKeyword(action, locatorType, locatorValue, data);
 		}
 	}
 }
