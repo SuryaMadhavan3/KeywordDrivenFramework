@@ -19,6 +19,7 @@ import org.testng.annotations.Test;
 import keyword.framework.core.BaseTest;
 import keyword.framework.core.ExcelDataReader;
 import keyword.framework.core.ExcelWriter;
+import keyword.framework.core.FrameworkPaths;
 import keyword.framework.core.KeywordExecutor;
 import keyword.framework.core.TestCaseQueue;
 import keyword.framework.dataproviders.DataProviderUtil;
@@ -121,7 +122,7 @@ public class KeywordDrivenTest extends BaseTest {
 		double cartTotal = executor.getLastExtractedPrice();
 		System.out.println("🧮 Expected total: " + expectedTotal + " | Cart total (actual): " + cartTotal);
 		boolean isMatch = Math.round(cartTotal) == Math.round(expectedTotal);
-		ExcelWriter.updateStatus(tcId, cartTotal, isMatch ? "PASS" : "FAIL");
+		ExcelWriter.updateStatus(FrameworkPaths.TESTDATA_PATH, "Purchase", tcId, cartTotal, isMatch ? "PASS" : "FAIL");
 		quitDriver();
 	}
 

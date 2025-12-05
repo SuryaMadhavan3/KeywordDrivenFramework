@@ -111,8 +111,8 @@ public class KeywordExecutor extends BaseActions {
 				lastExtractedPrice = getNumericValue(locatorType, locatorValue);
 				break;
 				
-			case "deleteallincart":
-			    deleteAllInCart(locatorType, locatorValue);
+			case "removeAllElements":
+				removeAllElements(locatorType, locatorValue);
 			    break;
 			    
 			case "getcarttotal":

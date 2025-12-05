@@ -112,13 +112,10 @@ public class BaseActions {
 	public void optionalClick(String locatorType, String locatorValue) {
 		try {
 			driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(0));
-
 			WebElement element = new WebDriverWait(driver, Duration.ofSeconds(2))
 					.until(ExpectedConditions.elementToBeClickable(getBy(locatorType, locatorValue)));
-
 			element.click();
 			System.out.println("[OPTIONAL] Clicked element: " + locatorValue);
-
 		} catch (TimeoutException e) {
 			System.out.println("[OPTIONAL] Element not found (skipped): " + locatorValue);
 		} catch (Exception e) {
@@ -151,7 +148,7 @@ public class BaseActions {
 		System.out.println("[INFO] Product not found: " + text);
 	}
 
-	public void deleteAllInCart(String locatorType, String locatorValue) {
+	public void removeAllElements(String locatorType, String locatorValue) {
 		try {
 			while (true) {
 				List<WebElement> deleteButtons = driver.findElements(getBy(locatorType, locatorValue));
@@ -160,7 +157,6 @@ public class BaseActions {
 					System.out.println("🧺 Cart is already empty.");
 					break;
 				}
-
 				// Always click the first visible delete button
 				WebElement btn = deleteButtons.get(0);
 				((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", btn);
@@ -330,6 +326,22 @@ public class BaseActions {
 	        return 0.0;
 	    }
 	}
-
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
